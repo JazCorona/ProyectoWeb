@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Proyecto Web Informativo - Unidad II</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+</head>
+<body>
+
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">Tecnologías Web API</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ms-auto">
+        <li class="nav-item"><a class="nav-link" href="#webapis">APIs</a></li>
+        <li class="nav-item"><a class="nav-link" href="#microservicios">Microservicios</a></li>
+        <li class="nav-item"><a class="nav-link" href="#desarrollo-api">Desarrollo API</a></li>
+        <li class="nav-item"><a class="nav-link" href="#contenedores">Contenedores</a></li>
+        <li class="nav-item"><a class="nav-link" href="#cloud-dev">Cloud</a></li>
+        <li class="nav-item"><a class="nav-link" href="#contacto">Contacto</a></li>
+        <li class="nav-item"><a class="nav-link" href="#entregables">Entregables</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<!-- Sección Web APIs (160 puntos) -->
+<section id="webapis" class="py-5 bg-light">
+  <div class="container">
+    <h2 class="text-center mb-5 display-4 fw-bold">Tecnologías Web API</h2>
+    <div class="row g-5">
+      <!-- REST API -->
+      <div class="col-md-6">
+        <div class="card h-100">
+          <div class="card-header bg-primary text-white">
+            <i class="bi bi-diagram-2"></i> REST API
+          </div>
+          <div class="card-body">
+            <h4>Principios REST</h4>
+            <ul class="list-group list-group-flush">
+              <li class="list-group-item">Métodos HTTP: GET, POST, PUT, DELETE</li>
+              <li class="list-group-item">Stateless</li>
+              <li class="list-group-item">Recursos URI únicos</li>
+              <li class="list-group-item">Formato estándar (JSON)</li>
+            </ul>
+            <pre class="mt-3"><code>// Ejemplo endpoint REST
+app.get('/api/usuarios', (req, res) => {
+    res.json(usuarios);
+});</code></pre>
+            <p class="mt-3">REST es ampliamente usado por su simplicidad, interoperabilidad con HTTP y escalabilidad.</p>
+          </div>
+        </div>
+      </div>
+      <!-- GraphQL -->
+      <div class="col-md-6">
+        <div class="card h-100">
+          <div class="card-header bg-success text-white">
+            <i class="bi bi-graph-up"></i> GraphQL
+          </div>
+          <div class="card-body">
+            <h4>Consultas Específicas</h4>
+            <div class="row">
+              <div class="col-md-6">
+                <p class="fw-bold">Consulta:</p>
+                <pre><code>{
+  usuario(id: 123) {
+    nombre
+    email
+  }
+}</code></pre>
+              </div>
+              <div class="col-md-6">
+                <p class="fw-bold">Respuesta:</p>
+                <pre><code>{
+  "data": {
+    "usuario": {
+      "nombre": "Juan",
+      "email": "juan@example.com"
+    }
+  }
+}</code></pre>
+              </div>
+            </div>
+            <p class="mt-3">GraphQL permite a los clientes definir exactamente los datos que necesitan, reduciendo el consumo innecesario de información.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Autenticación -->
+    <div class="row mt-5">
+      <div class="col-12">
+        <div class="card">
+          <div class="card-header bg-dark text-white">
+            <i class="bi bi-shield-lock"></i> Seguridad en APIs
+          </div>
+          <div class="card-body">
+            <div class="row">
+              <div class="col-md-4">
+                <h5>JWT (JSON Web Tokens)</h5>
+                <pre><code>header.payload.signature</code></pre>
+                <button class="btn btn-sm btn-outline-dark" data-bs-toggle="modal" data-bs-target="#jwtModal">
+                  Ver estructura
+                </button>
+              </div>
+              <div class="col-md-4">
+                <h5>OAuth 2.0</h5>
+                <ul>
+                  <li>Authorization Code</li>
+                  <li>Client Credentials</li>
+                  <li>Implicit Flow</li>
+                </ul>
+                <p>Permite delegar autorización entre servicios con seguridad.</p>
+              </div>
+              <div class="col-md-4">
+                <h5>Rate Limiting</h5>
+                <div class="progress">
+                  <div class="progress-bar" style="width: 75%">75/100 requests</div>
+                </div>
+                <p class="mt-2">Controla la cantidad de peticiones para evitar abusos.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Comparativa REST vs GraphQL -->
+    <div class="row mt-5">
+      <div class="col-12">
+        <h4 class="text-center">Comparación REST vs GraphQL</h4>
+        <table class="table table-bordered mt-3">
+          <thead class="table-light">
+            <tr>
+              <th></th>
+              <th>REST</th>
+              <th>GraphQL</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>Formato</td><td>Múltiples endpoints</td><td>Un solo endpoint</td></tr>
+            <tr><td>Datos</td><td>Fijos por endpoint</td><td>Personalizables por el cliente</td></tr>
+            <tr><td>Versionado</td><td>Necesario</td><td>No requerido</td></tr>
+            <tr><td>Overfetching</td><td>Común</td><td>Reducido</td></tr>
+            <tr><td>Curva de aprendizaje</td><td>Fácil</td><td>Moderada</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Sección Microservicios (50 puntos) -->
+<section id="microservicios" class="py-5">
+  <div class="container">
+    <h2 class="text-center mb-5 display-4 fw-bold">Arquitectura de Microservicios</h2>
+    <div class="row g-4">
+      <!-- Comunicación -->
+      <div class="col-md-6">
+        <div class="card">
+          <div class="card-header">Patrones de Comunicación</div>
+          <div class="card-body">
+            <div class="row">
+              <div class="col-md-6">
+                <h5><i class="bi bi-arrow-repeat"></i> Síncrona</h5>
+                <ul>
+                  <li>HTTP/REST</li>
+                  <li>gRPC</li>
+                  <li>Timeout Management</li>
+                </ul>
+              </div>
+              <div class="col-md-6">
+                <h5><i class="bi bi-envelope"></i> Asíncrona</h5>
+                <ul>
+                  <li>Message Brokers</li>
+                  <li>Event Sourcing</li>
+                  <li>Apache Kafka</li>
+                </ul>
+              </div>
+            </div>
+            <img src="https://learn.microsoft.com/es-es/dotnet/architecture/microservices/architect-microservice-container-applications/media/communication-in-microservice-architecture/sync-vs-async-patterns-across-microservices.png" class="img-fluid mt-3" alt="Diagrama de comunicación">
+          </div>
+        </div>
+      </div>
+      <!-- Resiliencia -->
+      <div class="col-md-6">
+        <div class="card h-100">
+          <div class="card-header">Patrones de Resiliencia</div>
+          <div class="card-body">
+            <div class="accordion" id="resilienceAccordion">
+              <div class="accordion-item">
+                <h2 class="accordion-header">
+                  <button class="accordion-button" data-bs-toggle="collapse" data-bs-target="#circuitBreaker">
+                    Circuit Breaker
+                  </button>
+                </h2>
+                <div id="circuitBreaker" class="accordion-collapse collapse show">
+                  <div class="accordion-body">
+                    <img src="https://www.simform.com/wp-content/uploads/2022/06/circuit-breaker-pattern-1-610x250.png" class="img-fluid" alt="Estados Circuit Breaker">
+                  </div>
+                </div>
+              </div>
+              <div class="accordion-item">
+                <h2 class="accordion-header">
+                  <button class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#retry">
+                    Retry Pattern
+                  </button>
+                </h2>
+                <div id="retry" class="accordion-collapse collapse">
+                  <div class="accordion-body">
+                    <pre><code>intento 1 → falla
+espera 200ms → reintento
+→ éxito</code></pre>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Desarrollo Web API (80 puntos) -->
+<section id="desarrollo-api" class="py-5 bg-dark text-white">
+  <div class="container">
+    <h2 class="text-center mb-5 display-4 fw-bold">Desarrollo de una Web API</h2>
+    <div class="row g-4">
+      <div class="col-md-3">
+        <div class="card bg-secondary">
+          <div class="card-header">Paso 1: Diseño</div>
+          <div class="card-body">
+            <ul>
+              <li>Definir recursos</li>
+              <li>Esquema de URIs</li>
+              <li>Versionado (v1, v2)</li>
+            </ul>
+            <pre><code class="text-white">/api/v1/usuarios
+/api/v1/productos</code></pre>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="card bg-secondary">
+          <div class="card-header">Paso 2: Implementación</div>
+          <div class="card-body">
+            <div class="hstack gap-2 mb-3">
+              <span class="badge bg-primary">Express.js</span>
+              <span class="badge bg-success">ASP.NET Core</span>
+              <span class="badge bg-warning text-dark">Spring Boot</span>
+            </div>
+            <pre><code class="text-white">@GetMapping("/usuarios")
+public List<Usuario> getUsuarios() {
+    return usuarioService.getAll();
+}</code></pre>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="card bg-secondary">
+          <div class="card-header">Paso 3: Documentación</div>
+          <div class="card-body">
+            <h5>OpenAPI/Swagger</h5>
+            <img src="https://quintagroup.com/blog/swagger/@@download/image/Swagger%20for%20OpenAPI.png" class="img-fluid" alt="Interfaz Swagger">
+          </div>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="card bg-secondary">
+          <div class="card-header">Paso 4: Pruebas</div>
+          <div class="card-body">
+            <h6>Herramientas recomendadas</h6>
+            <ul>
+              <li>Postman para pruebas manuales</li>
+              <li>Jest/Supertest para automatizadas en Node.js</li>
+              <li>Swagger UI para pruebas integradas</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Manejo de Contenedores (50 puntos) -->
+<section id="contenedores" class="py-5">
+  <div class="container">
+    <h2 class="text-center mb-5 display-4 fw-bold">Manejo de Contenedores</h2>
+    <div class="row g-4">
+      <div class="col-md-6">
+        <div class="card">
+          <div class="card-header bg-info text-white">
+            <i class="bi bi-box-seam"></i> Docker
+          </div>
+          <div class="card-body">
+            <h5>Dockerfile Ejemplo</h5>
+            <pre><code>FROM node:18
+WORKDIR /app
+COPY package*.json ./
+RUN npm install
+COPY . .
+EXPOSE 3000
+CMD ["node", "server.js"]</code></pre>
+            <div class="alert alert-info mt-3">
+              <i class="bi bi-terminal"></i> Comandos comunes: <code>docker build</code>, <code>docker-compose up</code>
+            </div>
+            <h5 class="mt-4">Buenas Prácticas</h5>
+            <ul>
+              <li>Usar imágenes pequeñas (slim/alpine).</li>
+              <li>Evitar copiar archivos innecesarios (<code>.dockerignore</code>).</li>
+              <li>Un proceso principal por contenedor.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="card">
+          <div class="card-header bg-warning text-dark">
+            <i class="bi bi-gear-wide-connected"></i> Kubernetes
+          </div>
+          <div class="card-body">
+            <h5>Archivo de Despliegue</h5>
+            <pre><code>apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: web-api
+spec:
+  replicas: 3
+  template:
+    spec:
+      containers:
+      - name: app
+        image: my-api:1.0.0
+        ports:
+        - containerPort: 3000</code></pre>
+            <button class="btn btn-sm btn-warning mt-2" data-bs-toggle="modal" data-bs-target="#k8sModal">
+              Ver diagrama de arquitectura
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Desarrollo Cloud (50 puntos) -->
+<section id="cloud-dev" class="py-5 bg-primary text-white">
+  <div class="container">
+    <h2 class="text-center mb-5 display-4 fw-bold">Desarrollo para la Nube</h2>
+    <div class="row g-4">
+      <div class="col-md-4">
+        <div class="card bg-white text-dark h-100">
+          <div class="card-header">AWS Lambda</div>
+          <div class="card-body">
+            <h5>Función Serverless</h5>
+            <pre><code>exports.handler = async (event) => {
+    const response = {
+        statusCode: 200,
+        body: JSON.stringify('Hello from Lambda!'),
+    };
+    return response;
+};</code></pre>
+            <div class="mt-2">
+              <span class="badge bg-primary">Escalado automático</span>
+              <span class="badge bg-success">Pago por uso</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="card bg-white text-dark h-100">
+          <div class="card-header">Azure Cosmos DB</div>
+          <div class="card-body">
+            <h5>Base de Datos Global</h5>
+            <ul>
+              <li>Multi-modelo</li>
+              <li>Baja latencia</li>
+              <li>Escalado horizontal</li>
+            </ul>
+            <img src="https://www.windowscentral.com/sites/wpcentral.com/files/styles/medium/public/field/image/2018/04/azure-map.jpg?itok=hc5BJbWH" class="img-fluid" alt="Distribución global">
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="card bg-white text-dark h-100">
+          <div class="card-header">Google Cloud Run</div>
+          <div class="card-body">
+            <h5>Contenedores Administrados</h5>
+            <div class="ratio ratio-16x9">
+              <iframe src="https://www.youtube.com/watch?v=wd22sbv8UlE&ab_channel=PRONECTIS" title="Cloud Run tutorial"></iframe>
+            </div>
+            <button class="btn btn-sm btn-primary mt-2" data-bs-toggle="modal" data-bs-target="#cloudModal">
+              Ver comparativas
+            </button>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="card bg-white text-dark h-100">
+          <div class="card-header">Firebase</div>
+          <div class="card-body">
+            <h5>Backend como Servicio (BaaS)</h5>
+            <ul>
+              <li>Autenticación integrada</li>
+              <li>Base de datos en tiempo real</li>
+              <li>Hosting y funciones cloud</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="card bg-white text-dark h-100">
+          <div class="card-header">Cloudflare Workers</div>
+          <div class="card-body">
+            <h5>Edge Computing</h5>
+            <p>Ejecuta funciones en servidores distribuidos cerca del usuario.</p>
+            <span class="badge bg-warning text-dark">Bajo coste</span>
+            <span class="badge bg-primary">Alto rendimiento</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Formulario de Contacto (100 puntos) -->
+<section id="contacto" class="py-5">
+  <div class="container">
+    <h2 class="text-center mb-4 display-5 fw-bold">Contacto</h2>
+    <form class="row g-3">
+      <div class="col-md-6">
+        <label for="nombre" class="form-label">Nombre</label>
+        <input type="text" class="form-control" id="nombre" placeholder="Tu nombre" required>
+      </div>
+      <div class="col-md-6">
+        <label for="email" class="form-label">Correo Electrónico</label>
+        <input type="email" class="form-control" id="email" placeholder="nombre@ejemplo.com" required>
+      </div>
+      <div class="col-12">
+        <label for="mensaje" class="form-label">Mensaje</label>
+        <textarea class="form-control" id="mensaje" rows="4" placeholder="Escribe tu mensaje..." required></textarea>
+      </div>
+      <div class="col-12 text-center">
+        <button type="submit" class="btn btn-primary">Enviar</button>
+      </div>
+    </form>
+  </div>
+</section>
+
+
+<!-- Modales -->
+<!-- Modal Kubernetes -->
+<div class="modal fade" id="k8sModal">
+  <div class="modal-dialog modal-xl">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Arquitectura Kubernetes</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body">
+        <img src="https://aulasoftwarelibre.github.io/taller-de-pas/Sesion-2/images/arquitectura.jpg" class="img-fluid" alt="Arquitectura Kubernetes">
+        <div class="row mt-3">
+          <div class="col-md-6">
+            <h6>Componentes Principales</h6>
+            <ul>
+              <li>Pods</li>
+              <li>Services</li>
+              <li>Deployments</li>
+            </ul>
+          </div>
+          <div class="col-md-6">
+            <h6>Comandos Esenciales</h6>
+            <pre><code>kubectl get pods
+kubectl apply -f deployment.yaml
+kubectl scale deployment web --replicas=5</code></pre>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal JWT -->
+<div class="modal fade" id="jwtModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Estructura de JWT</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body">
+        <p>Un JWT consta de tres partes: Header, Payload y Signature, separadas por puntos. Cada parte se codifica en Base64.</p>
+        <img src="https://media.licdn.com/dms/image/v2/D4D12AQGkSnB3ry1LOQ/article-cover_image-shrink_720_1280/article-cover_image-shrink_720_1280/0/1721175878649?e=2147483647&v=beta&t=bp1EWyFnt33xgJBJBe0cwFwNnoKmRy_TvdTZPhKAS-A" class="img-fluid" alt="Estructura JWT">
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal Cloud Comparativas -->
+<div class="modal fade" id="cloudModal">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Comparativa de Servicios Cloud</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body">
+        <p>Comparativa de costos, escalabilidad y rendimiento entre AWS Lambda, Azure Cosmos DB, Google Cloud Run, Firebase y Cloudflare Workers.</p>
+        <img src="https://www.infortisalabs.com/blog/wp-content/uploads/2024/05/Grafico-Tabla-Comparativa-Moderno-Degradado-Rosa-y-Amarillo-1.webp" class="img-fluid" alt="Comparativa Cloud">
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
