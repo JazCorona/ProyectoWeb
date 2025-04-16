@@ -3,218 +3,1639 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Proyecto Web Informativo - Unidad II</title>
+  <title>Proyecto Web Informativo - Tecnologías Web API</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+  <style>
+    :root {
+      --primary: #6366f1;
+      --primary-dark: #4f46e5;
+      --primary-light: #a5b4fc;
+      --secondary: #14b8a6;
+      --secondary-dark: #0d9488;
+      --dark: #0f172a;
+      --dark-light: #1e293b;
+      --light: #f8fafc;
+      --gray: #64748b;
+      --success: #10b981;
+      --warning: #f59e0b;
+      --danger: #ef4444;
+      --info: #06b6d4;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      color: var(--dark);
+      background-color: var(--light);
+      overflow-x: hidden;
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+      font-weight: 600;
+    }
+
+    .code-font {
+      font-family: 'Space Mono', monospace;
+    }
+
+    .navbar {
+      padding: 1rem 0;
+      transition: all 0.3s ease;
+    }
+
+    .navbar-scrolled {
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+      padding: 0.5rem 0;
+      background-color: rgba(255, 255, 255, 0.95) !important;
+      backdrop-filter: blur(10px);
+    }
+
+    .navbar-dark.navbar-scrolled {
+      background-color: rgba(15, 23, 42, 0.95) !important;
+    }
+
+    .navbar-brand {
+      font-weight: 700;
+      font-size: 1.5rem;
+    }
+
+    .nav-link {
+      font-weight: 500;
+      position: relative;
+      padding: 0.5rem 1rem !important;
+    }
+
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      width: 0;
+      height: 2px;
+      bottom: 0;
+      left: 50%;
+      background-color: var(--primary);
+      transition: all 0.3s ease;
+      transform: translateX(-50%);
+    }
+
+    .nav-link:hover::after,
+    .nav-link.active::after {
+      width: 80%;
+    }
+
+    .bg-gradient-primary {
+      background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+    }
+
+    .bg-gradient-dark {
+      background: linear-gradient(135deg, var(--dark) 0%, var(--dark-light) 100%);
+    }
+
+    .hero-section {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-section::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image: url('https://images.unsplash.com/photo-1558494949-ef010cbdcc31');
+      background-size: cover;
+      background-position: center;
+      opacity: 0.2;
+      z-index: -1;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero-badge {
+      background-color: rgba(255, 255, 255, 0.2);
+      color: white;
+      border: none;
+      padding: 0.5rem 1rem;
+      border-radius: 50px;
+      font-weight: 500;
+      margin-right: 0.5rem;
+      margin-bottom: 0.5rem;
+      backdrop-filter: blur(5px);
+      transition: all 0.3s ease;
+    }
+
+    .hero-badge:hover {
+      background-color: rgba(255, 255, 255, 0.3);
+      transform: translateY(-2px);
+    }
+
+    .feature-icon {
+      width: 4rem;
+      height: 4rem;
+      border-radius: 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2rem;
+      margin-bottom: 1.5rem;
+      background-color: var(--primary);
+      color: white;
+      box-shadow: 0 10px 15px -3px rgba(99, 102, 241, 0.3);
+    }
+
+    .code-block {
+      border-radius: 0.75rem;
+      background-color: var(--dark);
+      color: #f8fafc;
+      padding: 1.5rem;
+      overflow-x: auto;
+      font-family: 'Space Mono', monospace;
+      font-size: 0.875rem;
+      line-height: 1.6;
+      box-shadow: 0 10px 15px -3px rgba(15, 23, 42, 0.1);
+    }
+
+    .tech-badge {
+      font-size: 0.8rem;
+      padding: 0.35rem 0.75rem;
+      margin-right: 0.5rem;
+      margin-bottom: 0.5rem;
+      display: inline-block;
+      border-radius: 50px;
+      font-weight: 500;
+      transition: all 0.3s ease;
+    }
+
+    .tech-badge:hover {
+      transform: translateY(-2px);
+    }
+
+    .comparison-table th, .comparison-table td {
+      padding: 1rem;
+      vertical-align: middle;
+    }
+
+    .nav-pills .nav-link {
+      border-radius: 50px;
+      padding: 0.75rem 1.5rem !important;
+      font-weight: 500;
+      transition: all 0.3s ease;
+    }
+
+    .nav-pills .nav-link.active {
+      background-color: var(--primary);
+      box-shadow: 0 10px 15px -3px rgba(99, 102, 241, 0.3);
+      transform: translateY(-2px);
+    }
+
+    .nav-pills .nav-link:not(.active) {
+      color: var(--dark);
+    }
+
+    .nav-pills .nav-link:hover:not(.active) {
+      background-color: rgba(99, 102, 241, 0.1);
+    }
+
+    .card {
+      border: none;
+      border-radius: 1rem;
+      overflow: hidden;
+      box-shadow: 0 10px 15px -3px rgba(15, 23, 42, 0.1);
+      transition: all 0.3s ease;
+    }
+
+    .card-hover:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 20px 25px -5px rgba(15, 23, 42, 0.1), 0 10px 10px -5px rgba(15, 23, 42, 0.04);
+    }
+
+    .card-header {
+      border-bottom: none;
+      padding: 1.5rem;
+      font-weight: 600;
+    }
+
+    .card-body {
+      padding: 1.5rem;
+    }
+
+    .timeline-item {
+      position: relative;
+      padding-left: 3.5rem;
+      margin-bottom: 2.5rem;
+    }
+
+    .timeline-item:before {
+      content: "";
+      position: absolute;
+      left: 0.75rem;
+      top: 0;
+      bottom: 0;
+      width: 2px;
+      background-color: var(--primary-light);
+    }
+
+    .timeline-badge {
+      position: absolute;
+      left: 0;
+      width: 2.5rem;
+      height: 2.5rem;
+      border-radius: 50%;
+      background-color: var(--primary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-weight: bold;
+      box-shadow: 0 10px 15px -3px rgba(99, 102, 241, 0.3);
+    }
+
+    .btn {
+      border-radius: 50px;
+      padding: 0.75rem 1.5rem;
+      font-weight: 500;
+      transition: all 0.3s ease;
+    }
+
+    .btn-primary {
+      background-color: var(--primary);
+      border-color: var(--primary);
+    }
+
+    .btn-primary:hover {
+      background-color: var(--primary-dark);
+      border-color: var(--primary-dark);
+      transform: translateY(-2px);
+      box-shadow: 0 10px 15px -3px rgba(99, 102, 241, 0.3);
+    }
+
+    .btn-outline-primary {
+      color: var(--primary);
+      border-color: var(--primary);
+    }
+
+    .btn-outline-primary:hover {
+      background-color: var(--primary);
+      border-color: var(--primary);
+      transform: translateY(-2px);
+      box-shadow: 0 10px 15px -3px rgba(99, 102, 241, 0.3);
+    }
+
+    .accordion-button:not(.collapsed) {
+      background-color: rgba(99, 102, 241, 0.1);
+      color: var(--primary);
+      box-shadow: none;
+    }
+
+    .accordion-button:focus {
+      box-shadow: none;
+      border-color: rgba(99, 102, 241, 0.5);
+    }
+
+    .accordion-item {
+      border-radius: 0.75rem;
+      overflow: hidden;
+      margin-bottom: 1rem;
+      border: 1px solid rgba(15, 23, 42, 0.1);
+    }
+
+    .accordion-header {
+      border-radius: 0.75rem;
+    }
+
+    .accordion-button {
+      border-radius: 0.75rem;
+      padding: 1.25rem;
+      font-weight: 500;
+    }
+
+    .form-control, .form-select {
+      border-radius: 0.75rem;
+      padding: 0.75rem 1.25rem;
+      border: 1px solid rgba(15, 23, 42, 0.1);
+      transition: all 0.3s ease;
+    }
+
+    .form-control:focus, .form-select:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 0.25rem rgba(99, 102, 241, 0.25);
+    }
+
+    .form-label {
+      font-weight: 500;
+      margin-bottom: 0.5rem;
+    }
+
+    .section-title {
+      position: relative;
+      margin-bottom: 3rem;
+      padding-bottom: 1rem;
+    }
+
+    .section-title::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 80px;
+      height: 4px;
+      background-color: var(--primary);
+      border-radius: 2px;
+    }
+
+    .section-subtitle {
+      color: var(--primary);
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      font-size: 0.875rem;
+      margin-bottom: 1rem;
+    }
+
+    .bg-pattern {
+      background-color: #f8fafc;
+      background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%236366f1' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    }
+
+    .bg-dark-pattern {
+      background-color: var(--dark);
+      background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%236366f1' fill-opacity='0.1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    }
+
+    .floating {
+      animation: floating 3s ease-in-out infinite;
+    }
+
+    @keyframes floating {
+      0% { transform: translateY(0px); }
+      50% { transform: translateY(-15px); }
+      100% { transform: translateY(0px); }
+    }
+
+    .rotate-hover:hover {
+      transform: rotate(5deg);
+      transition: transform 0.3s ease;
+    }
+
+    .highlight-box {
+      border-radius: 1rem;
+      padding: 2rem;
+      background-color: rgba(99, 102, 241, 0.05);
+      border-left: 4px solid var(--primary);
+    }
+
+    .text-gradient {
+      background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      text-fill-color: transparent;
+    }
+
+    .blob-shape {
+      position: absolute;
+      z-index: -1;
+      opacity: 0.5;
+      filter: blur(40px);
+    }
+
+    .blob-1 {
+      top: -100px;
+      right: -100px;
+      width: 400px;
+      height: 400px;
+      background: radial-gradient(circle, rgba(99, 102, 241, 0.5) 0%, rgba(99, 102, 241, 0) 70%);
+    }
+
+    .blob-2 {
+      bottom: -100px;
+      left: -100px;
+      width: 300px;
+      height: 300px;
+      background: radial-gradient(circle, rgba(20, 184, 166, 0.5) 0%, rgba(20, 184, 166, 0) 70%);
+    }
+
+    .custom-shape-divider {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      overflow: hidden;
+      line-height: 0;
+    }
+
+    .custom-shape-divider svg {
+      position: relative;
+      display: block;
+      width: calc(100% + 1.3px);
+      height: 70px;
+    }
+
+    .custom-shape-divider .shape-fill {
+      fill: #FFFFFF;
+    }
+
+    .feature-card {
+      border-radius: 1rem;
+      overflow: hidden;
+      box-shadow: 0 10px 15px -3px rgba(15, 23, 42, 0.1);
+      transition: all 0.3s ease;
+      height: 100%;
+    }
+
+    .feature-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 20px 25px -5px rgba(15, 23, 42, 0.1), 0 10px 10px -5px rgba(15, 23, 42, 0.04);
+    }
+
+    .feature-card .card-body {
+      padding: 2rem;
+    }
+
+    .feature-icon-wrapper {
+      width: 80px;
+      height: 80px;
+      border-radius: 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 1.5rem;
+      background-color: rgba(99, 102, 241, 0.1);
+      color: var(--primary);
+      font-size: 2rem;
+      transition: all 0.3s ease;
+    }
+
+    .feature-card:hover .feature-icon-wrapper {
+      background-color: var(--primary);
+      color: white;
+      transform: rotate(10deg);
+    }
+
+    .counter-box {
+      text-align: center;
+      padding: 2rem;
+      border-radius: 1rem;
+      background-color: white;
+      box-shadow: 0 10px 15px -3px rgba(15, 23, 42, 0.1);
+      transition: all 0.3s ease;
+    }
+
+    .counter-box:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 20px 25px -5px rgba(15, 23, 42, 0.1), 0 10px 10px -5px rgba(15, 23, 42, 0.04);
+    }
+
+    .counter-number {
+      font-size: 3rem;
+      font-weight: 700;
+      color: var(--primary);
+      margin-bottom: 0.5rem;
+    }
+
+    .counter-text {
+      font-size: 1.25rem;
+      font-weight: 500;
+      color: var(--dark);
+    }
+
+    .testimonial-card {
+      padding: 2rem;
+      border-radius: 1rem;
+      background-color: white;
+      box-shadow: 0 10px 15px -3px rgba(15, 23, 42, 0.1);
+      transition: all 0.3s ease;
+      position: relative;
+    }
+
+    .testimonial-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 20px 25px -5px rgba(15, 23, 42, 0.1), 0 10px 10px -5px rgba(15, 23, 42, 0.04);
+    }
+
+    .testimonial-card::before {
+      content: '"';
+      position: absolute;
+      top: 10px;
+      left: 20px;
+      font-size: 5rem;
+      color: rgba(99, 102, 241, 0.1);
+      font-family: serif;
+      line-height: 1;
+    }
+
+    .testimonial-text {
+      font-style: italic;
+      margin-bottom: 1.5rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    .testimonial-author {
+      display: flex;
+      align-items: center;
+    }
+
+    .testimonial-author-img {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      margin-right: 1rem;
+      object-fit: cover;
+    }
+
+    .testimonial-author-name {
+      font-weight: 600;
+      margin-bottom: 0.25rem;
+    }
+
+    .testimonial-author-title {
+      font-size: 0.875rem;
+      color: var(--gray);
+    }
+
+    .cta-section {
+      position: relative;
+      overflow: hidden;
+      padding: 6rem 0;
+    }
+
+    .cta-section::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image: url('https://images.unsplash.com/photo-1551434678-e076c223a692');
+      background-size: cover;
+      background-position: center;
+      opacity: 0.1;
+      z-index: -1;
+    }
+
+    .cta-content {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+    }
+
+    .cta-title {
+      font-size: 2.5rem;
+      font-weight: 700;
+      margin-bottom: 1.5rem;
+    }
+
+    .cta-text {
+      font-size: 1.25rem;
+      margin-bottom: 2rem;
+      max-width: 700px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .cta-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+    }
+
+    .footer {
+      background-color: var(--dark);
+      color: white;
+      padding: 5rem 0 2rem;
+    }
+
+    .footer-title {
+      font-size: 1.25rem;
+      font-weight: 600;
+      margin-bottom: 1.5rem;
+      color: white;
+    }
+
+    .footer-link {
+      color: rgba(255, 255, 255, 0.7);
+      text-decoration: none;
+      transition: all 0.3s ease;
+      display: block;
+      margin-bottom: 0.75rem;
+    }
+
+    .footer-link:hover {
+      color: white;
+      transform: translateX(5px);
+    }
+
+    .footer-social {
+      display: flex;
+      gap: 1rem;
+      margin-top: 1.5rem;
+    }
+
+    .footer-social-link {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background-color: rgba(255, 255, 255, 0.1);
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s ease;
+    }
+
+    .footer-social-link:hover {
+      background-color: var(--primary);
+      transform: translateY(-5px);
+    }
+
+    .footer-bottom {
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      padding-top: 2rem;
+      margin-top: 3rem;
+      text-align: center;
+      color: rgba(255, 255, 255, 0.7);
+    }
+
+    .back-to-top {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background-color: var(--primary);
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.25rem;
+      box-shadow: 0 10px 15px -3px rgba(99, 102, 241, 0.3);
+      cursor: pointer;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s ease;
+      z-index: 999;
+    }
+
+    .back-to-top.show {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .back-to-top:hover {
+      background-color: var(--primary-dark);
+      transform: translateY(-5px);
+    }
+
+    @media (max-width: 991.98px) {
+      .navbar-collapse {
+        background-color: white;
+        padding: 1rem;
+        border-radius: 1rem;
+        box-shadow: 0 10px 15px -3px rgba(15, 23, 42, 0.1);
+        margin-top: 1rem;
+      }
+
+      .navbar-dark .navbar-collapse {
+        background-color: var(--dark-light);
+      }
+
+      .nav-link::after {
+        display: none;
+      }
+
+      .cta-buttons {
+        flex-direction: column;
+      }
+    }
+
+    @media (max-width: 767.98px) {
+      .hero-content {
+        text-align: center;
+      }
+
+      .section-title {
+        margin-bottom: 2rem;
+      }
+
+      .feature-icon-wrapper {
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      .timeline-item {
+        padding-left: 3rem;
+      }
+
+      .timeline-badge {
+        width: 2rem;
+        height: 2rem;
+      }
+    }
+  </style>
 </head>
 <body>
 
+<!-- Back to Top Button -->
+<a href="#" class="back-to-top" id="backToTop">
+  <i class="bi bi-arrow-up"></i>
+</a>
+
 <!-- Navbar -->
-<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-  <div class="container-fluid">
-    <a class="navbar-brand" href="#">Tecnologías Web API</a>
+<nav class="navbar navbar-expand-lg navbar-dark bg-gradient-primary sticky-top">
+  <div class="container">
+    <a class="navbar-brand d-flex align-items-center" href="#">
+      <i class="bi bi-code-slash me-2"></i>
+      Proyecto Web Informativo - Unidad II
+    </a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav ms-auto">
+        <li class="nav-item"><a class="nav-link active" href="#home">Inicio</a></li>
         <li class="nav-item"><a class="nav-link" href="#webapis">APIs</a></li>
         <li class="nav-item"><a class="nav-link" href="#microservicios">Microservicios</a></li>
-        <li class="nav-item"><a class="nav-link" href="#desarrollo-api">Desarrollo API</a></li>
+        <li class="nav-item"><a class="nav-link" href="#desarrollo-api">Desarrollo</a></li>
         <li class="nav-item"><a class="nav-link" href="#contenedores">Contenedores</a></li>
         <li class="nav-item"><a class="nav-link" href="#cloud-dev">Cloud</a></li>
         <li class="nav-item"><a class="nav-link" href="#contacto">Contacto</a></li>
-        <li class="nav-item"><a class="nav-link" href="#entregables">Entregables</a></li>
       </ul>
     </div>
   </div>
 </nav>
 
-<!-- Sección Web APIs (160 puntos) -->
-<section id="webapis" class="py-5 bg-light">
-  <div class="container">
-    <h2 class="text-center mb-5 display-4 fw-bold">Tecnologías Web API</h2>
-    <div class="row g-5">
-      <!-- REST API -->
-      <div class="col-md-6">
-        <div class="card h-100">
+<!-- Hero Section -->
+<header id="home" class="hero-section bg-gradient-primary text-white py-5">
+  <div class="blob-shape blob-1"></div>
+  <div class="blob-shape blob-2"></div>
+  <div class="container py-5">
+    <div class="row align-items-center">
+      <div class="col-lg-6 mb-5 mb-lg-0 hero-content">
+        <div class="animate__animated animate__fadeInUp">
+          <h5 class="mb-3 text-light">Explora el futuro del desarrollo web</h5>
+          <h1 class="display-4 fw-bold mb-4">Tecnologías Web API</h1>
+          <p class="lead mb-4">Descubre las tecnologías modernas para el desarrollo de APIs web, microservicios y aplicaciones en la nube que están transformando la industria.</p>
+          <div class="d-flex flex-wrap mb-4">
+            <span class="hero-badge">HTTP</span>
+            <span class="hero-badge">SOAP</span>
+            <span class="hero-badge">REST</span>
+            <span class="hero-badge">JWT</span>
+            <span class="hero-badge">Microservicios</span>
+            <span class="hero-badge">Docker</span>
+          </div>
+          <div class="d-flex flex-wrap gap-3">
+            <a href="#webapis" class="btn btn-light">Explorar APIs</a>
+            <a href="#contacto" class="btn btn-outline-light">Contactar</a>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-6">
+        <div class="position-relative animate__animated animate__fadeInRight">
+          <img src="https://cdn.pixabay.com/photo/2018/05/08/08/44/artificial-intelligence-3382507_1280.jpg" class="img-fluid rounded-3 shadow-lg floating" alt="Web API Technologies">
+          <div class="position-absolute top-0 start-0 translate-middle">
+            <div class="bg-white p-3 rounded-3 shadow-lg rotate-hover">
+              <i class="bi bi-hdd-network text-primary fs-3"></i>
+            </div>
+          </div>
+          <div class="position-absolute bottom-0 end-0 translate-middle">
+            <div class="bg-white p-3 rounded-3 shadow-lg rotate-hover">
+              <i class="bi bi-cloud-arrow-up text-primary fs-3"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="custom-shape-divider">
+    <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
+      <path d="M321.39,56.44c58-10.79,114.16-30  viewBox="0 0 1200 120" preserveAspectRatio="none">
+      <path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z" class="shape-fill"></path>
+    </svg>
+  </div>
+</header>
+
+<!-- Sección Web APIs -->
+<section id="webapis" class="py-5 bg-pattern">
+  <div class="container py-5">
+    <div class="text-center mb-5">
+      <h6 class="section-subtitle">FUNDAMENTOS</h6>
+      <h2 class="section-title display-5 fw-bold">Tecnologías Web API</h2>
+      <p class="text-muted mx-auto" style="max-width: 700px;">Las APIs web son interfaces que permiten la comunicación entre diferentes sistemas de software a través de la web, formando la columna vertebral de las aplicaciones modernas.</p>
+    </div>
+    
+    <!-- Tabs de navegación -->
+    <ul class="nav nav-pills mb-5 justify-content-center" id="apiTabs" role="tablist">
+      <li class="nav-item mx-2" role="presentation">
+        <button class="nav-link active" id="http-tab" data-bs-toggle="pill" data-bs-target="#http" type="button" role="tab" aria-controls="http" aria-selected="true">
+          <i class="bi bi-globe me-2"></i>HTTP
+        </button>
+      </li>
+      <li class="nav-item mx-2" role="presentation">
+        <button class="nav-link" id="soap-tab" data-bs-toggle="pill" data-bs-target="#soap" type="button" role="tab" aria-controls="soap" aria-selected="false">
+          <i class="bi bi-envelope me-2"></i>SOAP
+        </button>
+      </li>
+      <li class="nav-item mx-2" role="presentation">
+        <button class="nav-link" id="rest-tab" data-bs-toggle="pill" data-bs-target="#rest" type="button" role="tab" aria-controls="rest" aria-selected="false">
+          <i class="bi bi-arrow-left-right me-2"></i>REST
+        </button>
+      </li>
+      <li class="nav-item mx-2" role="presentation">
+        <button class="nav-link" id="jwt-tab" data-bs-toggle="pill" data-bs-target="#jwt" type="button" role="tab" aria-controls="jwt" aria-selected="false">
+          <i class="bi bi-key me-2"></i>JWT
+        </button>
+      </li>
+    </ul>
+    
+    <!-- Contenido de los tabs -->
+    <div class="tab-content" id="apiTabsContent">
+      <!-- HTTP -->
+      <div class="tab-pane fade show active" id="http" role="tabpanel" aria-labelledby="http-tab">
+        <div class="card shadow-lg">
+          <div class="card-body p-0">
+            <div class="row g-0">
+              <div class="col-md-6 p-4 p-lg-5">
+                <h3 class="card-title mb-4 text-gradient">HTTP (HyperText Transfer Protocol)</h3>
+                <p class="card-text">HTTP es el protocolo fundamental para la transferencia de datos en la web. Define cómo se formatean y transmiten los mensajes, y cómo deben responder los servidores y navegadores a diferentes comandos.</p>
+                
+                <h4 class="mt-4 mb-3 h5">Características principales:</h4>
+                <ul class="list-group list-group-flush mb-4">
+                  <li class="list-group-item bg-transparent px-0"><i class="bi bi-check-circle-fill text-success me-2"></i> Protocolo sin estado (stateless)</li>
+                  <li class="list-group-item bg-transparent px-0"><i class="bi bi-check-circle-fill text-success me-2"></i> Basado en el modelo cliente-servidor</li>
+                  <li class="list-group-item bg-transparent px-0"><i class="bi bi-check-circle-fill text-success me-2"></i> Extensible mediante cabeceras</li>
+                  <li class="list-group-item bg-transparent px-0"><i class="bi bi-check-circle-fill text-success me-2"></i> Soporta diferentes tipos de contenido (MIME)</li>
+                  <li class="list-group-item bg-transparent px-0"><i class="bi bi-check-circle-fill text-success me-2"></i> Versiones principales: HTTP/1.0, HTTP/1.1, HTTP/2, HTTP/3</li>
+                </ul>
+              </div>
+              
+              <div class="col-md-6 p-4 p-lg-5 bg-light">
+                <h4 class="mb-3 h5">Métodos HTTP principales:</h4>
+                <div class="mb-3">
+                  <div class="card mb-2 border-0 shadow-sm">
+                    <div class="card-body py-2">
+                      <h5 class="card-title text-success mb-1 h6">GET</h5>
+                      <p class="card-text small mb-0">Solicita una representación del recurso especificado. Solo debe recuperar datos.</p>
+                    </div>
+                  </div>
+                  <div class="card mb-2 border-0 shadow-sm">
+                    <div class="card-body py-2">
+                      <h5 class="card-title text-primary mb-1 h6">POST</h5>
+                      <p class="card-text small mb-0">Envía datos para ser procesados por el recurso identificado. A menudo causa cambio de estado.</p>
+                    </div>
+                  </div>
+                  <div class="card mb-2 border-0 shadow-sm">
+                    <div class="card-body py-2">
+                      <h5 class="card-title text-warning mb-1 h6">PUT</h5>
+                      <p class="card-text small mb-0">Actualiza el recurso especificado con los datos proporcionados. Es idempotente.</p>
+                    </div>
+                  </div>
+                  <div class="card mb-2 border-0 shadow-sm">
+                    <div class="card-body py-2">
+                      <h5 class="card-title text-danger mb-1 h6">DELETE</h5>
+                      <p class="card-text small mb-0">Elimina el recurso especificado.</p>
+                    </div>
+                  </div>
+                  <div class="card mb-2 border-0 shadow-sm">
+                    <div class="card-body py-2">
+                      <h5 class="card-title text-info mb-1 h6">PATCH</h5>
+                      <p class="card-text small mb-0">Aplica modificaciones parciales a un recurso.</p>
+                    </div>
+                  </div>
+                </div>
+                
+                <h4 class="mb-3 h5">Códigos de estado HTTP:</h4>
+                <div class="row g-2">
+                  <div class="col-6">
+                    <div class="card bg-success bg-opacity-10 border-success">
+                      <div class="card-body p-2">
+                        <h5 class="card-title mb-0 h6">2xx - Éxito</h5>
+                        <p class="card-text small">200 OK, 201 Created, 204 No Content</p>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-6">
+                    <div class="card bg-primary bg-opacity-10 border-primary">
+                      <div class="card-body p-2">
+                        <h5 class="card-title mb-0 h6">3xx - Redirección</h5>
+                        <p class="card-text small">301 Moved, 302 Found, 304 Not Modified</p>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-6">
+                    <div class="card bg-warning bg-opacity-10 border-warning">
+                      <div class="card-body p-2">
+                        <h5 class="card-title mb-0 h6">4xx - Error cliente</h5>
+                        <p class="card-text small">400 Bad Request, 401 Unauthorized, 404 Not Found</p>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-6">
+                    <div class="card bg-danger bg-opacity-10 border-danger">
+                      <div class="card-body p-2">
+                        <h5 class="card-title mb-0 h6">5xx - Error servidor</h5>
+                        <p class="card-text small">500 Internal Server Error, 503 Service Unavailable</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <div class="p-4 p-lg-5 border-top">
+              <h4 class="mb-3 h5">Ejemplo de petición HTTP:</h4>
+              <div class="code-block code-font">
+GET /api/users HTTP/1.1
+Host: api.example.com
+Accept: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
+              </div>
+              
+              <h4 class="mt-4 mb-3 h5">Ejemplo de respuesta HTTP:</h4>
+              <div class="code-block code-font">
+HTTP/1.1 200 OK
+Content-Type: application/json
+Cache-Control: max-age=3600
+
+{
+  "users": [
+    {"id": 1, "name": "Juan Pérez", "email": "juan@example.com"},
+    {"id": 2, "name": "Ana García", "email": "ana@example.com"}
+  ],
+  "total": 2,
+  "page": 1
+}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- SOAP -->
+      <div class="tab-pane fade" id="soap" role="tabpanel" aria-labelledby="soap-tab">
+        <div class="card shadow-lg">
+          <div class="card-body p-0">
+            <div class="row g-0">
+              <div class="col-md-6 p-4 p-lg-5">
+                <h3 class="card-title mb-4 text-gradient">SOAP (Simple Object Access Protocol)</h3>
+                <p class="card-text">SOAP es un protocolo estándar que define cómo dos objetos en diferentes procesos pueden comunicarse por medio del intercambio de datos XML. Es un protocolo más rígido y formal que REST.</p>
+                
+                <h4 class="mt-4 mb-3 h5">Características principales:</h4>
+                <ul class="list-group list-group-flush mb-4">
+                  <li class="list-group-item bg-transparent px-0"><i class="bi bi-check-circle-fill text-success me-2"></i> Independiente del protocolo de transporte (HTTP, SMTP, TCP, etc.)</li>
+                  <li class="list-group-item bg-transparent px-0"><i class="bi bi-check-circle-fill text-success me-2"></i> Fuertemente tipado mediante WSDL (Web Services Description Language)</li>
+                  <li class="list-group-item bg-transparent px-0"><i class="bi bi-check-circle-fill text-success me-2"></i> Soporta operaciones complejas y transacciones</li>
+                  <li class="list-group-item bg-transparent px-0"><i class="bi bi-check-circle-fill text-success me-2"></i> Incluye mecanismos de seguridad integrados (WS-Security)</li>
+                  <li class="list-group-item bg-transparent px-0"><i class="bi bi-check-circle-fill text-success me-2"></i> Manejo de errores estandarizado</li>
+                </ul>
+              </div>
+              
+              <div class="col-md-6 p-4 p-lg-5 bg-light">
+                <h4 class="mb-3 h5">Estructura de un mensaje SOAP:</h4>
+                <div class="card mb-4 border-0 shadow-sm">
+                  <div class="card-body">
+                    <div class="mb-3 pb-3 border-bottom">
+                      <h5 class="card-title text-primary mb-1 h6">Envelope (Sobre)</h5>
+                      <p class="card-text small mb-0">Elemento raíz que identifica el documento XML como un mensaje SOAP.</p>
+                    </div>
+                    <div class="mb-3 pb-3 border-bottom">
+                      <h5 class="card-title text-primary mb-1 h6">Header (Cabecera)</h5>
+                      <p class="card-text small mb-0">Contiene información de cabecera como autenticación, transacciones, etc. Es opcional.</p>
+                    </div>
+                    <div class="mb-3 pb-3 border-bottom">
+                      <h5 class="card-title text-primary mb-1 h6">Body (Cuerpo)</h5>
+                      <p class="card-text small mb-0">Contiene la información de llamada y respuesta. Es obligatorio.</p>
+                    </div>
+                    <div>
+                      <h5 class="card-title text-primary mb-1 h6">Fault (Fallo)</h5>
+                      <p class="card-text small mb-0">Información de errores y estados. Es opcional y va dentro del Body.</p>
+                    </div>
+                  </div>
+                </div>
+                
+                <h4 class="mb-3 h5">Ventajas y desventajas:</h4>
+                <div class="row g-3">
+                  <div class="col-md-6">
+                    <div class="card bg-success bg-opacity-10 h-100 border-0 shadow-sm">
+                      <div class="card-body">
+                        <h5 class="card-title text-success h6">Ventajas</h5>
+                        <ul class="list-unstyled mb-0">
+                          <li><i class="bi bi-check text-success me-2"></i>Independiente del lenguaje</li>
+                          <li><i class="bi bi-check text-success me-2"></i>Independiente de la plataforma</li>
+                          <li><i class="bi bi-check text-success me-2"></i>Altamente extensible</li>
+                          <li><i class="bi bi-check text-success me-2"></i>Contrato formal (WSDL)</li>
+                          <li><i class="bi bi-check text-success me-2"></i>Seguridad integrada</li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="card bg-danger bg-opacity-10 h-100 border-0 shadow-sm">
+                      <div class="card-body">
+                        <h5 class="card-title text-danger h6">Desventajas</h5>
+                        <ul class="list-unstyled mb-0">
+                          <li><i class="bi bi-x text-danger me-2"></i>Mayor sobrecarga</li>
+                          <li><i class="bi bi-x text-danger me-2"></i>Más complejo de implementar</li>
+                          <li><i class="bi bi-x text-danger me-2"></i>Mensajes más pesados</li>
+                          <li><i class="bi bi-x text-danger me-2"></i>Curva de aprendizaje más pronunciada</li>
+                          <li><i class="bi bi-x text-danger me-2"></i>Menos eficiente para dispositivos móviles</li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <div class="p-4 p-lg-5 border-top">
+              <h4 class="mb-3 h5">Ejemplo de mensaje SOAP:</h4>
+              <div class="code-block code-font">
+&lt;?xml version="1.0"?&gt;
+&lt;soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope"&gt;
+  &lt;soap:Header&gt;
+    &lt;auth:Credentials xmlns:auth="http://example.org/auth"&gt;
+      &lt;auth:Username&gt;user123&lt;/auth:Username&gt;
+      &lt;auth:Password&gt;pass456&lt;/auth:Password&gt;
+    &lt;/auth:Credentials&gt;
+  &lt;/soap:Header&gt;
+  &lt;soap:Body&gt;
+    &lt;m:GetUser xmlns:m="http://example.org/users"&gt;
+      &lt;m:UserId&gt;12345&lt;/m:UserId&gt;
+    &lt;/m:GetUser&gt;
+  &lt;/soap:Body&gt;
+&lt;/soap:Envelope&gt;
+              </div>
+              
+              <h4 class="mt-4 mb-3 h5">Ejemplo de WSDL (Web Services Description Language):</h4>
+              <div class="code-block code-font">
+&lt;?xml version="1.0"?&gt;
+&lt;definitions name="UserService"
+             targetNamespace="http://example.org/users"
+             xmlns="http://schemas.xmlsoap.org/wsdl/"
+             xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+             xmlns:tns="http://example.org/users"
+             xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
+
+  &lt;message name="GetUserRequest"&gt;
+    &lt;part name="userId" type="xsd:string"/&gt;
+  &lt;/message&gt;
+
+  &lt;message name="GetUserResponse"&gt;
+    &lt;part name="user" type="tns:User"/&gt;
+  &lt;/message&gt;
+
+  &lt;portType name="UserPortType"&gt;
+    &lt;operation name="GetUser"&gt;
+      &lt;input message="tns:GetUserRequest"/&gt;
+      &lt;output message="tns:GetUserResponse"/&gt;
+    &lt;/operation&gt;
+  &lt;/portType&gt;
+
+  &lt;binding name="UserBinding" type="tns:UserPortType"&gt;
+    &lt;soap:binding style="rpc" transport="http://schemas.xmlsoap.org/soap/http"/&gt;
+    &lt;operation name="GetUser"&gt;
+      &lt;soap:operation soapAction="http://example.org/GetUser"/&gt;
+      &lt;input&gt;
+        &lt;soap:body use="encoded" namespace="http://example.org/users" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/&gt;
+      &lt;/input&gt;
+      &lt;output&gt;
+        &lt;soap:body use="encoded" namespace="http://example.org/users" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/&gt;
+      &lt;/output&gt;
+    &lt;/operation&gt;
+  &lt;/binding&gt;
+
+  &lt;service name="UserService"&gt;
+    &lt;port name="UserPort" binding="tns:UserBinding"&gt;
+      &lt;soap:address location="http://example.org/users"/&gt;
+    &lt;/port&gt;
+  &lt;/service&gt;
+&lt;/definitions&gt;
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- REST -->
+      <div class="tab-pane fade" id="rest" role="tabpanel" aria-labelledby="rest-tab">
+        <div class="card shadow-lg">
+          <div class="card-body p-0">
+            <div class="row g-0">
+              <div class="col-md-6 p-4 p-lg-5">
+                <h3 class="card-title mb-4 text-gradient">REST (Representational State Transfer)</h3>
+                <p class="card-text">REST es un estilo arquitectónico para sistemas distribuidos, no un protocolo. Define un conjunto de restricciones para crear servicios web escalables. Fue definido por Roy Fielding en su tesis doctoral en 2000.</p>
+                
+                <h4 class="mt-4 mb-3 h5">Principios REST:</h4>
+                <ul class="list-group list-group-flush mb-4">
+                  <li class="list-group-item bg-transparent px-0">
+                    <strong><i class="bi bi-check-circle-fill text-success me-2"></i> Cliente-Servidor:</strong> 
+                    <p class="small mb-0">Separación de responsabilidades entre la interfaz de usuario y el almacenamiento de datos.</p>
+                  </li>
+                  <li class="list-group-item bg-transparent px-0">
+                    <strong><i class="bi bi-check-circle-fill text-success me-2"></i> Sin estado (Stateless):</strong> 
+                    <p class="small mb-0">Cada petición del cliente al servidor debe contener toda la información necesaria para entender y completar la petición.</p>
+                  </li>
+                  <li class="list-group-item bg-transparent px-0">
+                    <strong><i class="bi bi-check-circle-fill text-success me-2"></i> Cacheable:</strong> 
+                    <p class="small mb-0">Las respuestas deben definir explícitamente si son cacheables o no para mejorar la eficiencia.</p>
+                  </li>
+                  <li class="list-group-item bg-transparent px-0">
+                    <strong><i class="bi bi-check-circle-fill text-success me-2"></i> Interfaz uniforme:</strong> 
+                    <p class="small mb-0">Simplifica la arquitectura y mejora la visibilidad de las interacciones.</p>
+                  </li>
+                  <li class="list-group-item bg-transparent px-0">
+                    <strong><i class="bi bi-check-circle-fill text-success me-2"></i> Sistema en capas:</strong> 
+                    <p class="small mb-0">Componentes jerárquicos que no pueden "ver" más allá de su capa inmediata.</p>
+                  </li>
+                  <li class="list-group-item bg-transparent px-0">
+                    <strong><i class="bi bi-check-circle-fill text-success me-2"></i> Código bajo demanda (opcional):</strong> 
+                    <p class="small mb-0">Permite extender la funcionalidad del cliente descargando y ejecutando código.</p>
+                  </li>
+                </ul>
+              </div>
+              
+              <div class="col-md-6 p-4 p-lg-5 bg-light">
+                <h4 class="mb-3 h5">Recursos y URIs:</h4>
+                <p class="mb-3">En REST, todo es un recurso que se identifica mediante URIs. Las operaciones sobre estos recursos se realizan mediante métodos HTTP estándar.</p>
+                
+                <div class="card mb-4 border-0 shadow-sm">
+                  <div class="card-body">
+                    <h5 class="card-title mb-3 h6">Ejemplos de URIs RESTful:</h5>
+                    <ul class="list-group list-group-flush">
+                      <li class="list-group-item bg-transparent px-0 d-flex align-items-center">
+                        <span class="badge bg-success me-2">GET</span>
+                        <code class="me-auto">/api/users</code>
+                        <span class="text-muted small">Obtener todos los usuarios</span>
+                      </li>
+                      <li class="list-group-item bg-transparent px-0 d-flex align-items-center">
+                        <span class="badge bg-success me-2">GET</span>
+                        <code class="me-auto">/api/users/123</code>
+                        <span class="text-muted small">Obtener usuario con ID 123</span>
+                      </li>
+                      <li class="list-group-item bg-transparent px-0 d-flex align-items-center">
+                        <span class="badge bg-primary me-2">POST</span>
+                        <code class="me-auto">/api/users</code>
+                        <span class="text-muted small">Crear un nuevo usuario</span>
+                      </li>
+                      <li class="list-group-item bg-transparent px-0 d-flex align-items-center">
+                        <span class="badge bg-warning text-dark me-2">PUT</span>
+                        <code class="me-auto">/api/users/123</code>
+                        <span class="text-muted small">Actualizar usuario con ID 123</span>
+                      </li>
+                      <li class="list-group-item bg-transparent px-0 d-flex align-items-center">
+                        <span class="badge bg-danger me-2">DELETE</span>
+                        <code class="me-auto">/api/users/123</code>
+                        <span class="text-muted small">Eliminar usuario con ID 123</span>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+                
+                <h4 class="mb-3 h5">Formatos de representación:</h4>
+                <div class="row g-3">
+                  <div class="col-md-6">
+                    <div class="card bg-primary bg-opacity-10 h-100 border-0 shadow-sm">
+                      <div class="card-body">
+                        <h5 class="card-title text-primary h6">JSON</h5>
+                        <p class="card-text small">Formato ligero y fácil de parsear, preferido en la mayoría de las APIs modernas.</p>
+                        <div class="code-block mt-2 code-font" style="font-size: 0.7rem;">
+{
+  "id": 123,
+  "name": "Juan Pérez",
+  "email": "juan@example.com"
+}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="card bg-success bg-opacity-10 h-100 border-0 shadow-sm">
+                      <div class="card-body">
+                        <h5 class="card-title text-success h6">XML</h5>
+                        <p class="card-text small">Más estructurado y extensible, pero más verboso que JSON.</p>
+                        <div class="code-block mt-2 code-font" style="font-size: 0.7rem;">
+&lt;user&gt;
+  &lt;id&gt;123&lt;/id&gt;
+  &lt;name&gt;Juan Pérez&lt;/name&gt;
+  &lt;email&gt;juan@example.com&lt;/email&gt;
+&lt;/user&gt;
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <div class="p-4 p-lg-5 border-top">
+              <h4 class="mb-3 h5">Niveles de madurez REST (Modelo de Richardson):</h4>
+              <div class="row g-3">
+                <div class="col-md-3">
+                  <div class="card h-100 border-0 shadow-sm">
+                    <div class="card-body">
+                      <h5 class="card-title h6">Nivel 0</h5>
+                      <p class="card-text small">Un único URI, un único método HTTP (generalmente POST). Ejemplo: SOAP sobre HTTP.</p>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-3">
+                  <div class="card h-100 border-0 shadow-sm">
+                    <div class="card-body">
+                      <h5 class="card-title h6">Nivel 1</h5>
+                      <p class="card-text small">Múltiples URIs (recursos), un único método HTTP. Ejemplo: servicios con múltiples endpoints pero solo POST.</p>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-3">
+                  <div class="card h-100 border-0 shadow-sm">
+                    <div class="card-body">
+                      <h5 class="card-title h6">Nivel 2</h5>
+                      <p class="card-text small">Múltiples URIs, uso de métodos HTTP. La mayoría de las APIs "REST" están en este nivel.</p>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-3">
+                  <div class="card h-100 border-0 shadow-sm border-primary">
+                    <div class="card-body">
+                      <h5 class="card-title text-primary h6">Nivel 3</h5>
+                      <p class="card-text small">HATEOAS (Hypermedia as the Engine of Application State). La API proporciona enlaces para navegar entre recursos.</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              <h4 class="mt-4 mb-3 h5">Ejemplo de respuesta REST con HATEOAS (Nivel 3):</h4>
+              <div class="code-block code-font">
+{
+  "id": 123,
+  "name": "Juan Pérez",
+  "email": "juan@example.com",
+  "role": "admin",
+  "created_at": "2023-05-15T14:30:00Z",
+  "_links": {
+    "self": { "href": "/api/users/123" },
+    "profile": { "href": "/api/users/123/profile" },
+    "orders": { "href": "/api/users/123/orders" }
+  }
+}
+              </div>
+              
+              <h4 class="mt-4 mb-3 h5">Ventajas de REST:</h4>
+              <div class="row g-3">
+                <div class="col-md-4">
+                  <div class="card bg-light border-0 shadow-sm h-100">
+                    <div class="card-body">
+                      <h5 class="card-title h6"><i class="bi bi-speedometer2 text-success me-2"></i>Rendimiento</h5>
+                      <p class="card-text small">Mejor rendimiento y escalabilidad gracias al uso de caché y la naturaleza sin estado.</p>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="card bg-light border-0 shadow-sm h-100">
+                    <div class="card-body">
+                      <h5 class="card-title h6"><i class="bi bi-gear text-success me-2"></i>Simplicidad</h5>
+                      <p class="card-text small">Más fácil de entender y usar que alternativas como SOAP. Curva de aprendizaje menor.</p>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="card bg-light border-0 shadow-sm h-100">
+                    <div class="card-body">
+                      <h5 class="card-title h6"><i class="bi bi-phone text-success me-2"></i>Compatibilidad</h5>
+                      <p class="card-text small">Ideal para dispositivos móviles y aplicaciones web modernas por su menor sobrecarga.</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- JWT -->
+      <div class="tab-pane fade" id="jwt" role="tabpanel" aria-labelledby="jwt-tab">
+        <div class="card shadow-lg">
+          <div class="card-body p-0">
+            <div class="row g-0">
+              <div class="col-md-6 p-4 p-lg-5">
+                <h3 class="card-title mb-4 text-gradient">JWT (JSON Web Tokens)</h3>
+                <p class="card-text">JWT es un estándar abierto (RFC 7519) que define una forma compacta y autónoma para transmitir información de forma segura entre partes como un objeto JSON. Es ampliamente utilizado para autenticación y autorización en aplicaciones web modernas.</p>
+                
+                <h4 class="mt-4 mb-3 h5">Características principales:</h4>
+                <ul class="list-group list-group-flush mb-4">
+                  <li class="list-group-item bg-transparent px-0"><i class="bi bi-check-circle-fill text-success me-2"></i> <strong>Compacto:</strong> Puede ser enviado a través de URL, POST o en cabeceras HTTP</li>
+                  <li class="list-group-item bg-transparent px-0"><i class="bi bi-check-circle-fill text-success me-2"></i> <strong>Autónomo:</strong> Contiene toda la información necesaria sobre el usuario</li>
+                  <li class="list-group-item bg-transparent px-0"><i class="bi bi-check-circle-fill text-success me-2"></i> <strong>Seguro:</strong> Firmado digitalmente usando algoritmos como HMAC o RSA</li>
+                  <li class="list-group-item bg-transparent px-0"><i class="bi bi-check-circle-fill text-success me-2"></i> <strong>Stateless:</strong> No requiere almacenar sesiones en el servidor</li>
+                  <li class="list-group-item bg-transparent px-0"><i class="bi bi-check-circle-fill text-success me-2"></i> <strong>Extensible:</strong> Puede contener claims personalizados según las necesidades</li>
+                </ul>
+                
+                <div class="card bg-warning bg-opacity-10 border-0 shadow-sm mb-4">
+                  <div class="card-body">
+                    <h5 class="card-title text-warning h6">Casos de uso comunes:</h5>
+                    <ul class="mb-0">
+                      <li>Autenticación de usuarios</li>
+                      <li>Intercambio seguro de información</li>
+                      <li>Autorización entre servicios</li>
+                      <li>Single Sign-On (SSO)</li>
+                      <li>Tokens de acceso para APIs</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+              
+              <div class="col-md-6 p-4 p-lg-5 bg-light">
+                <h4 class="mb-3 h5">Estructura de un JWT:</h4>
+                <div class="card mb-4 border-0 shadow-sm">
+                  <div class="card-body">
+                    <div class="d-flex align-items-center mb-3">
+                      <div class="badge bg-danger me-2 p-2">Header</div>
+                      <div class="badge bg-success me-2 p-2">Payload</div>
+                      <div class="badge bg-primary p-2">Signature</div>
+                    </div>
+                    <p class="mb-0">
+                      <code class="code-font">xxxxx.yyyyy.zzzzz</code>
+                    </p>
+                  </div>
+                </div>
+                
+                <div class="mb-3">
+                  <div class="card bg-danger bg-opacity-10 border-0 shadow-sm mb-3">
+                    <div class="card-body">
+                      <h5 class="card-title text-danger h6">Header</h5>
+                      <p class="card-text small">Contiene el tipo de token y el algoritmo de firma.</p>
+                      <div class="code-block code-font" style="font-size: 0.7rem;">
+{
+  "alg": "HS256",
+  "typ": "JWT"
+}
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <div class="card bg-success bg-opacity-10 border-0 shadow-sm mb-3">
+                    <div class="card-body">
+                      <h5 class="card-title text-success h6">Payload</h5>
+                      <p class="card-text small">Contiene las declaraciones (claims) sobre la entidad y datos adicionales.</p>
+                      <div class="code-block code-font" style="font-size: 0.7rem;">
+{
+  "sub": "1234567890",
+  "name": "John Doe",
+  "admin": true,
+  "iat": 1516239022,
+  "exp": 1516242622
+}
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <div class="card bg-primary bg-opacity-10 border-0 shadow-sm">
+                    <div class="card-body">
+                      <h5 class="card-title text-primary h6">Signature</h5>
+                      <p class="card-text small">Verifica que el mensaje no ha sido alterado en el camino.</p>
+                      <div class="code-block code-font" style="font-size: 0.7rem;">
+HMACSHA256(
+  base64UrlEncode(header) + "." +
+  base64UrlEncode(payload),
+  secret
+)
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <div class="p-4 p-lg-5 border-top">
+              <h4 class="mb-3 h5">Flujo de autenticación con JWT:</h4>
+              <div class="card bg-light border-0 shadow-sm">
+                <div class="card-body">
+                  <ol class="mb-0">
+                    <li class="mb-2"><strong>Inicio de sesión:</strong> El usuario envía credenciales (usuario/contraseña) al servidor</li>
+                    <li class="mb-2"><strong>Verificación:</strong> El servidor verifica las credenciales contra la base de datos</li>
+                    <li class="mb-2"><strong>Generación de token:</strong> El servidor crea un JWT con la información del usuario y lo firma</li>
+                    <li class="mb-2"><strong>Respuesta:</strong> El servidor envía el JWT al cliente</li>
+                    <li class="mb-2"><strong>Almacenamiento:</strong> El cliente guarda el token (localStorage, cookies, etc.)</li>
+                    <li class="mb-2"><strong>Peticiones autenticadas:</strong> El cliente incluye el JWT en las cabeceras de las peticiones</li>
+                    <li><strong>Validación:</strong> El servidor verifica la firma del JWT y procesa la petición</li>
+                  </ol>
+                </div>
+              </div>
+              
+              <h4 class="mt-4 mb-3 h5">Consideraciones de seguridad:</h4>
+              <div class="card bg-danger bg-opacity-10 border-0 shadow-sm">
+                <div class="card-body">
+                  <ul class="mb-0">
+                    <li class="mb-2"><i class="bi bi-shield-exclamation text-danger me-2"></i> No almacenar información sensible en el payload (es decodificable)</li>
+                    <li class="mb-2"><i class="bi bi-shield-exclamation text-danger me-2"></i> Usar HTTPS para transmitir los tokens</li>
+                    <li class="mb-2"><i class="bi bi-shield-exclamation text-danger me-2"></i> Establecer tiempos de expiración cortos</li>
+                    <li class="mb-2"><i class="bi bi-shield-exclamation text-danger me-2"></i> Implementar lista de tokens revocados si es necesario</li>
+                    <li class="mb-2"><i class="bi bi-shield-exclamation text-danger me-2"></i> Usar algoritmos de firma seguros (RS256 sobre HS256 para aplicaciones a gran escala)</li>
+                    <li><i class="bi bi-shield-exclamation text-danger me-2"></i> Validar los claims del token (emisor, audiencia, tiempo de expiración)</li>
+                  </ul>
+                </div>
+              </div>
+              
+              <h4 class="mt-4 mb-3 h5">Ejemplo de implementación en Node.js:</h4>
+              <div class="code-block code-font">
+// Generar un token
+const jwt = require('jsonwebtoken');
+const token = jwt.sign(
+  { userId: user.id, email: user.email },
+  process.env.JWT_SECRET,
+  { expiresIn: '1h' }
+);
+
+// Verificar un token
+try {
+  const decoded = jwt.verify(token, process.env.JWT_SECRET);
+  // Si llega aquí, el token es válido
+  console.log(decoded.userId);
+} catch (error) {
+  // Token inválido o expirado
+  console.error('Error de autenticación:', error.message);
+}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Sección Microservicios -->
+<section id="microservicios" class="py-5 bg-pattern">
+  <div class="container py-5">
+    <div class="text-center mb-5">
+      <h6 class="section-subtitle">ARQUITECTURA</h6>
+      <h2 class="section-title display-5 fw-bold">Microservicios</h2>
+      <p class="text-muted mx-auto" style="max-width: 700px;">Los microservicios son un enfoque arquitectónico que estructura una aplicación como una colección de servicios pequeños, autónomos y con un único propósito.</p>
+    </div>
+    
+    <div class="row g-4 mb-5">
+      <div class="col-lg-6">
+        <div class="card h-100 shadow-lg card-hover">
           <div class="card-header bg-primary text-white">
-            <i class="bi bi-diagram-2"></i> REST API
+            <h3 class="h5 mb-0"><i class="bi bi-layers me-2"></i> Principios fundamentales</h3>
           </div>
           <div class="card-body">
-            <h4>Principios REST</h4>
             <ul class="list-group list-group-flush">
-              <li class="list-group-item">Métodos HTTP: GET, POST, PUT, DELETE</li>
-              <li class="list-group-item">Stateless</li>
-              <li class="list-group-item">Recursos URI únicos</li>
-              <li class="list-group-item">Formato estándar (JSON)</li>
+              <li class="list-group-item bg-transparent">
+                <div class="d-flex">
+                  <div class="bg-primary bg-opacity-10 p-2 rounded-circle me-3">
+                    <div class="bg-primary rounded-circle" style="width: 8px; height: 8px;"></div>
+                  </div>
+                  <div>
+                    <strong>Responsabilidad única</strong>
+                    <p class="small text-muted mb-0">Cada servicio se enfoca en una única funcionalidad de negocio.</p>
+                  </div>
+                </div>
+              </li>
+              <li class="list-group-item bg-transparent">
+                <div class="d-flex">
+                  <div class="bg-primary bg-opacity-10 p-2 rounded-circle me-3">
+                    <div class="bg-primary rounded-circle" style="width: 8px; height: 8px;"></div>
+                  </div>
+                  <div>
+                    <strong>Autonomía</strong>
+                    <p class="small text-muted mb-0">Cada servicio puede ser desarrollado, desplegado y escalado independientemente.</p>
+                  </div>
+                </div>
+              </li>
+              <li class="list-group-item bg-transparent">
+                <div class="d-flex">
+                  <div class="bg-primary bg-opacity-10 p-2 rounded-circle me-3">
+                    <div class="bg-primary rounded-circle" style="width: 8px; height: 8px;"></div>
+                  </div>
+                  <div>
+                    <strong>Descentralización</strong>
+                    <p class="small text-muted mb-0">Gestión descentralizada de datos y gobernanza.</p>
+                  </div>
+                </div>
+              </li>
+              <li class="list-group-item bg-transparent">
+                <div class="d-flex">
+                  <div class="bg-primary bg-opacity-10 p-2 rounded-circle me-3">
+                    <div class="bg-primary rounded-circle" style="width: 8px; height: 8px;"></div>
+                  </div>
+                  <div>
+                    <strong>Aislamiento de fallos</strong>
+                    <p class="small text-muted mb-0">Los fallos en un servicio no deben afectar a otros servicios.</p>
+                  </div>
+                </div>
+              </li>
+              <li class="list-group-item bg-transparent">
+                <div class="d-flex">
+                  <div class="bg-primary bg-opacity-10 p-2 rounded-circle me-3">
+                    <div class="bg-primary rounded-circle" style="width: 8px; height: 8px;"></div>
+                  </div>
+                  <div>
+                    <strong>Evolución continua</strong>
+                    <p class="small text-muted mb-0">Facilita la evolución y actualización de partes específicas del sistema.</p>
+                  </div>
+                </div>
+              </li>
             </ul>
-            <pre class="mt-3"><code>// Ejemplo endpoint REST
-app.get('/api/usuarios', (req, res) => {
-    res.json(usuarios);
-});</code></pre>
-            <p class="mt-3">REST es ampliamente usado por su simplicidad, interoperabilidad con HTTP y escalabilidad.</p>
           </div>
         </div>
       </div>
-      <!-- GraphQL -->
-      <div class="col-md-6">
-        <div class="card h-100">
+      
+      <div class="col-lg-6">
+        <div class="card h-100 shadow-lg card-hover">
           <div class="card-header bg-success text-white">
-            <i class="bi bi-graph-up"></i> GraphQL
+            <h3 class="h5 mb-0"><i class="bi bi-diagram-3 me-2"></i> Patrones de comunicación</h3>
           </div>
           <div class="card-body">
-            <h4>Consultas Específicas</h4>
-            <div class="row">
-              <div class="col-md-6">
-                <p class="fw-bold">Consulta:</p>
-                <pre><code>{
-  usuario(id: 123) {
-    nombre
-    email
-  }
-}</code></pre>
+            <div class="accordion" id="communicationAccordion">
+              <div class="accordion-item border-0 shadow-sm mb-3">
+                <h2 class="accordion-header" id="syncHeading">
+                  <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#syncCollapse" aria-expanded="true" aria-controls="syncCollapse">
+                    <i class="bi bi-arrow-repeat text-primary me-2"></i> Comunicación síncrona
+                  </button>
+                </h2>
+                <div id="syncCollapse" class="accordion-collapse collapse show" aria-labelledby="syncHeading">
+                  <div class="accordion-body">
+                    <p class="small">El cliente espera la respuesta del servidor antes de continuar.</p>
+                    <div class="bg-light p-3 rounded">
+                      <h6 class="mb-2">Tecnologías:</h6>
+                      <div class="d-flex flex-wrap gap-2">
+                        <span class="badge border border-primary text-primary">REST</span>
+                        <span class="badge border border-primary text-primary">gRPC</span>
+                        <span class="badge border border-primary text-primary">GraphQL</span>
+                        <span class="badge border border-primary text-primary">SOAP</span>
+                      </div>
+                    </div>
+                    <div class="alert alert-warning mt-2 py-2 small">
+                      <strong>Nota:</strong> Puede introducir acoplamiento temporal entre servicios.
+                    </div>
+                  </div>
+                </div>
               </div>
-              <div class="col-md-6">
-                <p class="fw-bold">Respuesta:</p>
-                <pre><code>{
+              
+              <div class="accordion-item border-0 shadow-sm mb-3">
+                <h2 class="accordion-header" id="asyncHeading">
+                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#asyncCollapse" aria-expanded="false" aria-controls="asyncCollapse">
+                    <i class="bi bi-envelope text-success me-2"></i> Comunicación asíncrona
+                  </button>
+                </h2>
+                <div id="asyncCollapse" class="accordion-collapse collapse" aria-labelledby="asyncHeading">
+                  <div class="accordion-body">
+                    <p class="small">El cliente no espera una respuesta inmediata y puede continuar con otras tareas.</p>
+                    <div class="bg-light p-3 rounded">
+                      <h6 class="mb-2">Tecnologías:</h6>
+                      <div class="d-flex flex-wrap gap-2">
+                        <span class="badge border border-success text-success">Apache Kafka</span>
+                        <span class="badge border border-success text-success">RabbitMQ</span>
+                        <span class="badge border border-success text-success">AWS SQS</span>
+                        <span class="badge border border-success text-success">Azure Service Bus</span>
+                      </div>
+                    </div>
+                    <div class="alert alert-success mt-2 py-2 small">
+                      <strong>Ventaja:</strong> Mayor resiliencia y desacoplamiento entre servicios.
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              <div class="accordion-item border-0 shadow-sm">
+                <h2 class="accordion-header" id="eventHeading">
+                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#eventCollapse" aria-expanded="false" aria-controls="eventCollapse">
+                    <i class="bi bi-lightning-charge text-warning me-2"></i> Event-Driven Architecture
+                  </button>
+                </h2>
+                <div id="eventCollapse" class="accordion-collapse collapse" aria-labelledby="eventHeading">
+                  <div class="accordion-body">
+                    <p class="small">Los servicios se comunican mediante eventos que representan cambios de estado.</p>
+                    <div class="bg-light p-3 rounded">
+                      <h6 class="mb-2">Patrones:</h6>
+                      <ul class="small">
+                        <li>Event Sourcing</li>
+                        <li>CQRS (Command Query Responsibility Segregation)</li>
+                        <li>Publish-Subscribe</li>
+                      </ul>
+                    </div>
+                    <div class="code-block mt-2 code-font" style="font-size: 0.7rem;">
+// Ejemplo de evento
+{
+  "eventType": "OrderCreated",
+  "timestamp": "2023-05-15T14:30:00Z",
   "data": {
-    "usuario": {
-      "nombre": "Juan",
-      "email": "juan@example.com"
-    }
+    "orderId": "ORD-12345",
+    "customerId": "CUST-789",
+    "amount": 99.99
   }
-}</code></pre>
-              </div>
-            </div>
-            <p class="mt-3">GraphQL permite a los clientes definir exactamente los datos que necesitan, reduciendo el consumo innecesario de información.</p>
-          </div>
-        </div>
-      </div>
-    </div>
-    <!-- Autenticación -->
-    <div class="row mt-5">
-      <div class="col-12">
-        <div class="card">
-          <div class="card-header bg-dark text-white">
-            <i class="bi bi-shield-lock"></i> Seguridad en APIs
-          </div>
-          <div class="card-body">
-            <div class="row">
-              <div class="col-md-4">
-                <h5>JWT (JSON Web Tokens)</h5>
-                <pre><code>header.payload.signature</code></pre>
-                <button class="btn btn-sm btn-outline-dark" data-bs-toggle="modal" data-bs-target="#jwtModal">
-                  Ver estructura
-                </button>
-              </div>
-              <div class="col-md-4">
-                <h5>OAuth 2.0</h5>
-                <ul>
-                  <li>Authorization Code</li>
-                  <li>Client Credentials</li>
-                  <li>Implicit Flow</li>
-                </ul>
-                <p>Permite delegar autorización entre servicios con seguridad.</p>
-              </div>
-              <div class="col-md-4">
-                <h5>Rate Limiting</h5>
-                <div class="progress">
-                  <div class="progress-bar" style="width: 75%">75/100 requests</div>
-                </div>
-                <p class="mt-2">Controla la cantidad de peticiones para evitar abusos.</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <!-- Comparativa REST vs GraphQL -->
-    <div class="row mt-5">
-      <div class="col-12">
-        <h4 class="text-center">Comparación REST vs GraphQL</h4>
-        <table class="table table-bordered mt-3">
-          <thead class="table-light">
-            <tr>
-              <th></th>
-              <th>REST</th>
-              <th>GraphQL</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr><td>Formato</td><td>Múltiples endpoints</td><td>Un solo endpoint</td></tr>
-            <tr><td>Datos</td><td>Fijos por endpoint</td><td>Personalizables por el cliente</td></tr>
-            <tr><td>Versionado</td><td>Necesario</td><td>No requerido</td></tr>
-            <tr><td>Overfetching</td><td>Común</td><td>Reducido</td></tr>
-            <tr><td>Curva de aprendizaje</td><td>Fácil</td><td>Moderada</td></tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- Sección Microservicios (50 puntos) -->
-<section id="microservicios" class="py-5">
-  <div class="container">
-    <h2 class="text-center mb-5 display-4 fw-bold">Arquitectura de Microservicios</h2>
-    <div class="row g-4">
-      <!-- Comunicación -->
-      <div class="col-md-6">
-        <div class="card">
-          <div class="card-header">Patrones de Comunicación</div>
-          <div class="card-body">
-            <div class="row">
-              <div class="col-md-6">
-                <h5><i class="bi bi-arrow-repeat"></i> Síncrona</h5>
-                <ul>
-                  <li>HTTP/REST</li>
-                  <li>gRPC</li>
-                  <li>Timeout Management</li>
-                </ul>
-              </div>
-              <div class="col-md-6">
-                <h5><i class="bi bi-envelope"></i> Asíncrona</h5>
-                <ul>
-                  <li>Message Brokers</li>
-                  <li>Event Sourcing</li>
-                  <li>Apache Kafka</li>
-                </ul>
-              </div>
-            </div>
-            <img src="https://learn.microsoft.com/es-es/dotnet/architecture/microservices/architect-microservice-container-applications/media/communication-in-microservice-architecture/sync-vs-async-patterns-across-microservices.png" class="img-fluid mt-3" alt="Diagrama de comunicación">
-          </div>
-        </div>
-      </div>
-      <!-- Resiliencia -->
-      <div class="col-md-6">
-        <div class="card h-100">
-          <div class="card-header">Patrones de Resiliencia</div>
-          <div class="card-body">
-            <div class="accordion" id="resilienceAccordion">
-              <div class="accordion-item">
-                <h2 class="accordion-header">
-                  <button class="accordion-button" data-bs-toggle="collapse" data-bs-target="#circuitBreaker">
-                    Circuit Breaker
-                  </button>
-                </h2>
-                <div id="circuitBreaker" class="accordion-collapse collapse show">
-                  <div class="accordion-body">
-                    <img src="https://www.simform.com/wp-content/uploads/2022/06/circuit-breaker-pattern-1-610x250.png" class="img-fluid" alt="Estados Circuit Breaker">
-                  </div>
-                </div>
-              </div>
-              <div class="accordion-item">
-                <h2 class="accordion-header">
-                  <button class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#retry">
-                    Retry Pattern
-                  </button>
-                </h2>
-                <div id="retry" class="accordion-collapse collapse">
-                  <div class="accordion-body">
-                    <pre><code>intento 1 → falla
-espera 200ms → reintento
-→ éxito</code></pre>
+}
+                    </div>
                   </div>
                 </div>
               </div>
@@ -223,63 +1644,445 @@ espera 200ms → reintento
         </div>
       </div>
     </div>
-  </div>
-</section>
-
-<!-- Desarrollo Web API (80 puntos) -->
-<section id="desarrollo-api" class="py-5 bg-dark text-white">
-  <div class="container">
-    <h2 class="text-center mb-5 display-4 fw-bold">Desarrollo de una Web API</h2>
-    <div class="row g-4">
-      <div class="col-md-3">
-        <div class="card bg-secondary">
-          <div class="card-header">Paso 1: Diseño</div>
-          <div class="card-body">
-            <ul>
-              <li>Definir recursos</li>
-              <li>Esquema de URIs</li>
-              <li>Versionado (v1, v2)</li>
+    
+    <div class="card shadow-lg mb-5">
+      <div class="card-header bg-dark text-white">
+        <h3 class="h5 mb-0"><i class="bi bi-shield-shaded me-2"></i> Patrones de resiliencia en microservicios</h3>
+      </div>
+      <div class="card-body p-4">
+        <div class="row g-4">
+          <div class="col-md-4">
+            <div class="card h-100 border-0 shadow-sm card-hover">
+              <div class="card-header">
+                <h4 class="h6 mb-0">Circuit Breaker</h4>
+              </div>
+              <div class="card-body">
+                <p class="small text-muted mb-3">Previene que una aplicación intente repetidamente una operación que probablemente fallará.</p>
+                <div class="d-flex justify-content-between">
+                  <div class="text-center">
+                    <div class="rounded-circle bg-success bg-opacity-25 d-flex align-items-center justify-content-center mx-auto mb-2" style="width: 60px; height: 60px;">
+                      <span class="fw-bold text-success">Cerrado</span>
+                    </div>
+                    <span class="small">Normal</span>
+                  </div>
+                  <div class="text-center">
+                    <div class="rounded-circle bg-danger bg-opacity-25 d-flex align-items-center justify-content-center mx-auto mb-2" style="width: 60px; height: 60px;">
+                      <span class="fw-bold text-danger">Abierto</span>
+                    </div>
+                    <span class="small">Fallas</span>
+                  </div>
+                  <div class="text-center">
+                    <div class="rounded-circle bg-warning bg-opacity-25 d-flex align-items-center justify-content-center mx-auto mb-2" style="width: 60px; height: 60px;">
+                      <span class="fw-bold text-warning">Semi</span>
+                    </div>
+                    <span class="small">Prueba</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="col-md-4">
+            <div class="card h-100 border-0 shadow-sm card-hover">
+              <div class="card-header">
+                <h4 class="h6 mb-0">Retry Pattern</h4>
+              </div>
+              <div class="card-body">
+                <p class="small text-muted mb-3">Reintenta una operación fallida un número limitado de veces con intervalos crecientes.</p>
+                <div class="bg-light p-3 rounded">
+                  <div class="d-flex align-items-center mb-2">
+                    <span class="bg-danger rounded-circle me-2" style="width: 12px; height: 12px;"></span>
+                    <span class="small">Intento 1 → falla</span>
+                  </div>
+                  <div class="d-flex align-items-center mb-2">
+                    <span class="bg-warning rounded-circle me-2" style="width: 12px; height: 12px;"></span>
+                    <span class="small">Espera 200ms → reintento</span>
+                  </div>
+                  <div class="d-flex align-items-center mb-2">
+                    <span class="bg-danger rounded-circle me-2" style="width: 12px; height: 12px;"></span>
+                    <span class="small">Intento 2 → falla</span>
+                  </div>
+                  <div class="d-flex align-items-center mb-2">
+                    <span class="bg-warning rounded-circle me-2" style="width: 12px; height: 12px;"></span>
+                    <span class="small">Espera 400ms → reintento</span>
+                  </div>
+                  <div class="d-flex align-items-center">
+                    <span class="bg-success rounded-circle me-2" style="width: 12px; height: 12px;"></span>
+                    <span class="small">Intento 3 → éxito</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="col-md-4">
+            <div class="card h-100 border-0 shadow-sm card-hover">
+              <div class="card-header">
+                <h4 class="h6 mb-0">Bulkhead Pattern</h4>
+              </div>
+              <div class="card-body">
+                <p class="small text-muted mb-3">Aísla elementos de una aplicación en pools para que si uno falla, los demás continúen funcionando.</p>
+                <div class="border rounded p-3">
+                  <div class="row g-2 mb-2">
+                    <div class="col-4">
+                      <div class="bg-primary bg-opacity-25 p-2 rounded text-center small">Servicio A</div>
+                    </div>
+                    <div class="col-4">
+                      <div class="bg-success bg-opacity-25 p-2 rounded text-center small">Servicio B</div>
+                    </div>
+                    <div class="col-4">
+                      <div class="bg-info bg-opacity-25 p-2 rounded text-center small">Servicio C</div>
+                    </div>
+                  </div>
+                  <div class="row g-2">
+                    <div class="col-4">
+                      <div class="border border-primary bg-primary bg-opacity-10 p-2 rounded text-center small">Pool 1</div>
+                    </div>
+                    <div class="col-4">
+                      <div class="border border-success bg-success bg-opacity-10 p-2 rounded text-center small">Pool 2</div>
+                    </div>
+                    <div class="col-4">
+                      <div class="border border-info bg-info bg-opacity-10 p-2 rounded text-center small">Pool 3</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="card shadow-lg bg-dark text-white">
+      <div class="card-body p-4">
+        <h3 class="h5 mb-4">Ventajas y desafíos de los microservicios</h3>
+        <div class="row">
+          <div class="col-md-6">
+            <h4 class="h6 text-success mb-3">Ventajas</h4>
+            <ul class="list-unstyled">
+              <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i> Escalabilidad independiente de servicios</li>
+              <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i> Equipos autónomos y desarrollo paralelo</li>
+              <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i> Facilidad para adoptar nuevas tecnologías</li>
+              <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i> Despliegues más rápidos y menos riesgosos</li>
+              <li><i class="bi bi-check-circle-fill text-success me-2"></i> Mayor resiliencia del sistema</li>
             </ul>
-            <pre><code class="text-white">/api/v1/usuarios
-/api/v1/productos</code></pre>
+          </div>
+          <div class="col-md-6">
+            <h4 class="h6 text-danger mb-3">Desafíos</h4>
+            <ul class="list-unstyled">
+              <li class="mb-2"><i class="bi bi-x-circle-fill text-danger me-2"></i> Complejidad en la comunicación entre servicios</li>
+              <li class="mb-2"><i class="bi bi-x-circle-fill text-danger me-2"></i> Gestión de transacciones distribuidas</li>
+              <li class="mb-2"><i class="bi bi-x-circle-fill text-danger me-2"></i> Mayor sobrecarga operativa</li>
+              <li class="mb-2"><i class="bi bi-x-circle-fill text-danger me-2"></i> Complejidad en pruebas de integración</li>
+              <li><i class="bi bi-x-circle-fill text-danger me-2"></i> Necesidad de monitoreo y trazabilidad avanzados</li>
+            </ul>
           </div>
         </div>
       </div>
+    </div>
+  </div>
+</section>
+
+<!-- Desarrollo Web API -->
+<section id="desarrollo-api" class="py-5 bg-dark-pattern text-white">
+  <div class="container py-5">
+    <div class="text-center mb-5">
+      <h6 class="section-subtitle text-primary">IMPLEMENTACIÓN</h6>
+      <h2 class="section-title display-5 fw-bold">Desarrollo de una Web API</h2>
+      <p class="text-light mx-auto" style="max-width: 700px;">El proceso de desarrollo de una API web requiere planificación, diseño cuidadoso y buenas prácticas para crear interfaces robustas y mantenibles.</p>
+    </div>
+    
+    <div class="row g-4 mb-5">
       <div class="col-md-3">
-        <div class="card bg-secondary">
-          <div class="card-header">Paso 2: Implementación</div>
+        <div class="card bg-dark h-100 border-0 shadow-lg card-hover">
+          <div class="card-header">
+            <h3 class="h5 mb-0 text-white">Paso 1: Diseño</h3>
+          </div>
           <div class="card-body">
-            <div class="hstack gap-2 mb-3">
+            <ul class="small mb-0 text-light">
+              <li class="mb-2"><i class="bi bi-check text-primary me-2"></i> Definir recursos</li>
+              <li class="mb-2"><i class="bi bi-check text-primary me-2"></i> Esquema de URIs</li>
+              <li class="mb-2"><i class="bi bi-check text-primary me-2"></i> Versionado (v1, v2)</li>
+              <li><i class="bi bi-check text-primary me-2"></i> Formatos de respuesta</li>
+            </ul>
+            <div class="code-block code-font" style="font-size: 0.8rem;">
+/api/v1/usuarios
+/api/v1/productos/{id}
+/api/v1/pedidos/{id}/items
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="col-md-3">
+        <div class="card bg-dark h-100 border-0 shadow-lg card-hover">
+          <div class="card-header">
+            <h3 class="h5 mb-0 text-white">Paso 2: Implementación</h3>
+          </div>
+          <div class="card-body">
+            <div class="d-flex flex-wrap gap-2 mb-3">
               <span class="badge bg-primary">Express.js</span>
               <span class="badge bg-success">ASP.NET Core</span>
               <span class="badge bg-warning text-dark">Spring Boot</span>
+              <span class="badge bg-info text-dark">FastAPI</span>
             </div>
-            <pre><code class="text-white">@GetMapping("/usuarios")
-public List<Usuario> getUsuarios() {
-    return usuarioService.getAll();
-}</code></pre>
+            <div class="code-block code-font" style="font-size: 0.8rem;">
+// Express.js
+app.get('/api/users', async (req, res) => {
+  try {
+    const users = await userService.getAll();
+    res.json(users);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+            </div>
           </div>
         </div>
       </div>
+      
       <div class="col-md-3">
-        <div class="card bg-secondary">
-          <div class="card-header">Paso 3: Documentación</div>
-          <div class="card-body">
-            <h5>OpenAPI/Swagger</h5>
-            <img src="https://quintagroup.com/blog/swagger/@@download/image/Swagger%20for%20OpenAPI.png" class="img-fluid" alt="Interfaz Swagger">
+        <div class="card bg-dark h-100 border-0 shadow-lg card-hover">
+          <div class="card-header">
+            <h3 class="h5 mb-0 text-white">Paso 3: Documentación</h3>
           </div>
-        </div>
-      </div>
-      <div class="col-md-3">
-        <div class="card bg-secondary">
-          <div class="card-header">Paso 4: Pruebas</div>
           <div class="card-body">
-            <h6>Herramientas recomendadas</h6>
-            <ul>
-              <li>Postman para pruebas manuales</li>
-              <li>Jest/Supertest para automatizadas en Node.js</li>
-              <li>Swagger UI para pruebas integradas</li>
+            <p class="small mb-0 text-light">Una API bien documentada es más fácil de usar y mantener.</p>
+            <h5 class="h6 mb-2 text-white">Herramientas:</h5>
+            <ul class="small mb-0 text-light">
+              <li class="mb-2"><i class="bi bi-check-circle text-success me-2"></i> OpenAPI/Swagger</li>
+              <li class="mb-2"><i class="bi bi-check-circle text-success me-2"></i> API Blueprint</li>
+              <li><i class="bi bi-check-circle text-success me-2"></i> RAML</li>
             </ul>
+          </div>
+        </div>
+      </div>
+      
+      <div class="col-md-3">
+        <div class="card bg-dark h-100 border-0 shadow-lg card-hover">
+          <div class="card-header">
+            <h3 class="h5 mb-0 text-white">Paso 4: Pruebas</h3>
+          </div>
+          <div class="card-body">
+            <p class="small mb-0 text-light">Las pruebas aseguran que la API funcione correctamente y sea robusta.</p>
+            <div class="mb-2 p-2 bg-dark-light rounded">
+              <h6 class="mb-1 text-white">Pruebas unitarias</h6>
+              <p class="small mb-0 text-light">Verifican componentes individuales</p>
+            </div>
+            <div class="mb-2 p-2 bg-dark-light rounded">
+              <h6 class="mb-1 text-white">Pruebas de integración</h6>
+              <p class="small mb-0 text-light">Verifican interacciones entre componentes</p>
+            </div>
+            <div class="p-2 bg-dark-light rounded">
+              <h6 class="mb-1 text-white">Pruebas de carga</h6>
+              <p class="small mb-0 text-light">Verifican rendimiento bajo carga</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="card bg-dark border-0 shadow-lg mb-5">
+      <div class="card-body p-4">
+        <h3 class="h5 mb-4 text-white">Recomendaciones para el desarrollo de APIs</h3>
+        <div class="row">
+          <div class="col-md-6">
+            <h4 class="h6 text-info mb-3">Diseño y estructura</h4>
+            <ul class="list-unstyled">
+              <li class="mb-3">
+                <div class="d-flex">
+                  <div class="text-info me-2">→</div>
+                  <div>
+                    <strong class="text-white">Usa sustantivos, no verbos</strong>
+                    <p class="small text-light">Usa <code class="text-info">/users</code> en lugar de <code class="text-info">/getUsers</code></p>
+                  </div>
+                </div>
+              </li>
+              <li class="mb-3">
+                <div class="d-flex">
+                  <div class="text-info me-2">→</div>
+                  <div>
+                    <strong class="text-white">Versiona tus APIs</strong>
+                    <p class="small text-light">Usa prefijos como <code class="text-info">/v1/</code> o cabeceras</p>
+                  </div>
+                </div>
+              </li>
+              <li class="mb-3">
+                <div class="d-flex">
+                  <div class="text-info me-2">→</div>
+                  <div>
+                    <strong class="text-white">Usa parámetros de consulta para filtrado</strong>
+                    <p class="small text-light"><code class="text-info">/users?role=admin&status=active</code></p>
+                  </div>
+                </div>
+              </li>
+              <li>
+                <div class="d-flex">
+                  <div class="text-info me-2">→</div>
+                  <div>
+                    <strong class="text-white">Implementa paginación</strong>
+                    <p class="small text-light"><code class="text-info">/users?page=2&limit=10</code></p>
+                  </div>
+                </div>
+              </li>
+            </ul>
+          </div>
+          <div class="col-md-6">
+            <h4 class="h6 text-success mb-3">Seguridad y rendimiento</h4>
+            <ul class="list-unstyled">
+              <li class="mb-3">
+                <div class="d-flex">
+                  <div class="text-success me-2">→</div>
+                  <div>
+                    <strong class="text-white">Usa HTTPS siempre</strong>
+                    <p class="small text-light">Protege los datos en tránsito</p>
+                  </div>
+                </div>
+              </li>
+              <li class="mb-3">
+                <div class="d-flex">
+                  <div class="text-success me-2">→</div>
+                  <div>
+                    <strong class="text-white">Implementa rate limiting</strong>
+                    <p class="small text-light">Protege contra abusos y ataques DoS</p>
+                  </div>
+                </div>
+              </li>
+              <li class="mb-3">
+                <div class="d-flex">
+                  <div class="text-success me-2">→</div>
+                  <div>
+                    <strong class="text-white">Valida todas las entradas</strong>
+                    <p class="small text-light">Previene inyecciones y otros ataques</p>
+                  </div>
+                </div>
+              </li>
+              <li>
+                <div class="d-flex">
+                  <div class="text-success me-2">→</div>
+                  <div>
+                    <strong class="text-white">Implementa caché</strong>
+                    <p class="small text-light">Usa cabeceras Cache-Control y ETag</p>
+                  </div>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="card bg-dark border-0 shadow-lg">
+      <div class="card-body p-4">
+        <h3 class="h5 mb-4 text-white">Proceso de desarrollo de una API</h3>
+        <div class="position-relative">
+          <div class="position-absolute start-4 top-0 bottom-0 border-start border-2 border-primary"></div>
+          <div class="timeline-item">
+            <div class="timeline-badge">1</div>
+            <h4 class="h6 text-white">Análisis de requisitos</h4>
+            <p class="small text-light">Identifica las necesidades de los usuarios y los casos de uso que la API debe soportar.</p>
+            <div class="bg-dark-light p-3 rounded small text-light">
+              <ul class="mb-0">
+                <li>¿Quiénes son los consumidores de la API?</li>
+                <li>¿Qué operaciones necesitan realizar?</li>
+                <li>¿Qué volumen de tráfico se espera?</li>
+                <li>¿Qué requisitos de seguridad existen?</li>
+              </ul>
+            </div>
+          </div>
+          
+          <div class="timeline-item">
+            <div class="timeline-badge">2</div>
+            <h4 class="h6 text-white">Diseño de la API</h4>
+            <p class="small text-light">Define los recursos, endpoints, métodos HTTP, formatos de datos y esquemas de respuesta.</p>
+            <div class="bg-dark-light p-3 rounded small text-light">
+              <div class="mb-2">
+                <span class="text-info">Recursos:</span> Usuarios, Productos, Pedidos
+              </div>
+              <div class="mb-2">
+                <span class="text-info">Endpoints:</span> /api/v1/users, /api/v1/products, /api/v1/orders
+              </div>
+              <div>
+                <span class="text-info">Respuestas:</span> JSON con códigos HTTP apropiados
+              </div>
+            </div>
+          </div>
+          
+          <div class="timeline-item">
+            <div class="timeline-badge">3</div>
+            <h4 class="h6 text-white">Implementación</h4>
+            <p class="small text-light">Desarrolla la API utilizando el framework y lenguaje elegidos, siguiendo las mejores prácticas.</p>
+            <div class="bg-dark-light p-3 rounded small text-light">
+              <div class="code-block code-font" style="font-size: 0.8rem;">
+// Ejemplo en Express.js
+const express = require('express');
+const app = express();
+app.use(express.json());
+
+// Middleware de autenticación
+app.use(authMiddleware);
+
+// Endpoint para obtener usuarios
+app.get('/api/v1/users', async (req, res) => {
+  try {
+    const users = await userService.getAll();
+    res.json(users);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+app.listen(3000, () => console.log('API running on port 3000'));
+              </div>
+            </div>
+          </div>
+          
+          <div class="timeline-item">
+            <div class="timeline-badge">4</div>
+            <h4 class="h6 text-white">Pruebas</h4>
+            <p class="small text-light">Realiza pruebas unitarias, de integración y de carga para asegurar la calidad y rendimiento.</p>
+            <div class="row g-3">
+              <div class="col-md-6">
+                <div class="bg-dark-light p-3 rounded small text-light">
+                  <h6 class="mb-2 text-white">Herramientas de prueba:</h6>
+                  <ul class="mb-0">
+                    <li>Jest/Mocha para pruebas unitarias</li>
+                    <li>Supertest para pruebas de API</li>
+                    <li>Postman para pruebas manuales</li>
+                    <li>JMeter/k6 para pruebas de carga</li>
+                  </ul>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="bg-dark-light p-3 rounded small text-light">
+                  <h6 class="mb-2 text-white">Aspectos a probar:</h6>
+                  <ul class="mb-0">
+                    <li>Validación de entradas</li>
+                    <li>Manejo de errores</li>
+                    <li>Autenticación y autorización</li>
+                    <li>Rendimiento bajo carga</li>
+                    <li>Límites y casos extremos</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="timeline-item">
+            <div class="timeline-badge">5</div>
+            <h4 class="h6 text-white">Documentación y despliegue</h4>
+            <p class="small text-light">Documenta la API y despliégala en un entorno de producción con monitoreo.</p>
+            <div class="bg-dark-light p-3 rounded small text-light">
+              <div class="mb-2">
+                <span class="text-success">Documentación:</span> Swagger UI, Redoc
+              </div>
+              <div class="mb-2">
+                <span class="text-success">Despliegue:</span> Contenedores Docker, Kubernetes, Serverless
+              </div>
+              <div>
+                <span class="text-success">Monitoreo:</span> Logs, métricas, alertas, trazabilidad
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -287,140 +2090,644 @@ public List<Usuario> getUsuarios() {
   </div>
 </section>
 
-<!-- Manejo de Contenedores (50 puntos) -->
-<section id="contenedores" class="py-5">
-  <div class="container">
-    <h2 class="text-center mb-5 display-4 fw-bold">Manejo de Contenedores</h2>
-    <div class="row g-4">
-      <div class="col-md-6">
-        <div class="card">
+<!-- Manejo de Contenedores -->
+<section id="contenedores" class="py-5 bg-pattern">
+  <div class="container py-5">
+    <div class="text-center mb-5">
+      <h6 class="section-subtitle">INFRAESTRUCTURA</h6>
+      <h2 class="section-title display-5 fw-bold">Manejo de Contenedores</h2>
+      <p class="text-muted mx-auto" style="max-width: 700px;">Los contenedores proporcionan un entorno consistente para ejecutar aplicaciones, facilitando el desarrollo, pruebas y despliegue.</p>
+    </div>
+    
+    <div class="row g-4 mb-5">
+      <div class="col-lg-6">
+        <div class="card shadow-lg h-100 card-hover">
           <div class="card-header bg-info text-white">
-            <i class="bi bi-box-seam"></i> Docker
+            <h3 class="h5 mb-0"><i class="bi bi-box-seam me-2"></i> Docker</h3>
           </div>
           <div class="card-body">
-            <h5>Dockerfile Ejemplo</h5>
-            <pre><code>FROM node:18
+            <p>Docker es una plataforma para desarrollar, enviar y ejecutar aplicaciones en contenedores. Los contenedores permiten empaquetar una aplicación con todas sus dependencias en una unidad estandarizada.</p>
+            
+            <div class="feature-icon-wrapper mx-auto">
+              <i class="bi bi-box-seam"></i>
+            </div>
+            
+            <h4 class="h6 mt-4 mb-3">Conceptos fundamentales</h4>
+            <div class="d-flex mb-3">
+              <div class="bg-info bg-opacity-10 p-2 rounded-circle me-3">
+                <div class="bg-info rounded-circle" style="width: 8px; height: 8px;"></div>
+              </div>
+              <div>
+                <strong>Imágenes</strong>
+                <p class="small text-muted mb-0">Plantillas de solo lectura con el sistema operativo, aplicación y dependencias.</p>
+              </div>
+            </div>
+            <div class="d-flex mb-3">
+              <div class="bg-info bg-opacity-10 p-2 rounded-circle me-3">
+                <div class="bg-info rounded-circle" style="width: 8px; height: 8px;"></div>
+              </div>
+              <div>
+                <strong>Contenedores</strong>
+                <p class="small text-muted mb-0">Instancias ejecutables de una imagen con su propio sistema de archivos, red, etc.</p>
+              </div>
+            </div>
+            <div class="d-flex mb-3">
+              <div class="bg-info bg-opacity-10 p-2 rounded-circle me-3">
+                <div class="bg-info rounded-circle" style="width: 8px; height: 8px;"></div>
+              </div>
+              <div>
+                <strong>Dockerfile</strong>
+                <p class="small text-muted mb-0">Archivo de texto con instrucciones para construir una imagen.</p>
+              </div>
+            </div>
+            <div class="d-flex mb-4">
+              <div class="bg-info bg-opacity-10 p-2 rounded-circle me-3">
+                <div class="bg-info rounded-circle" style="width: 8px; height: 8px;"></div>
+              </div>
+              <div>
+                <strong>Docker Compose</strong>
+                <p class="small text-muted mb-0">Herramienta para definir y ejecutar aplicaciones multi-contenedor.</p>
+              </div>
+            </div>
+            
+            <h4 class="h6 mb-3">Ejemplo de Dockerfile</h4>
+            <div class="code-block code-font mb-4">
+FROM node:18-alpine
 WORKDIR /app
 COPY package*.json ./
 RUN npm install
 COPY . .
 EXPOSE 3000
-CMD ["node", "server.js"]</code></pre>
-            <div class="alert alert-info mt-3">
-              <i class="bi bi-terminal"></i> Comandos comunes: <code>docker build</code>, <code>docker-compose up</code>
+CMD ["node", "server.js"]
             </div>
-            <h5 class="mt-4">Buenas Prácticas</h5>
-            <ul>
-              <li>Usar imágenes pequeñas (slim/alpine).</li>
-              <li>Evitar copiar archivos innecesarios (<code>.dockerignore</code>).</li>
-              <li>Un proceso principal por contenedor.</li>
-            </ul>
+            
+            <h4 class="h6 mb-3">Comandos esenciales</h4>
+            <div class="row g-2">
+              <div class="col-6">
+                <div class="bg-light p-2 rounded">
+                  <code class="code-font">docker build -t myapp .</code>
+                  <p class="small text-muted mt-1 mb-0">Construye una imagen</p>
+                </div>
+              </div>
+              <div class="col-6">
+                <div class="bg-light p-2 rounded">
+                  <code class="code-font">docker run -p 3000:3000 myapp</code>
+                  <p class="small text-muted mt-1 mb-0">Ejecuta un contenedor</p>
+                </div>
+              </div>
+              <div class="col-6">
+                <div class="bg-light p-2 rounded">
+                  <code class="code-font">docker ps</code>
+                  <p class="small text-muted mt-1 mb-0">Lista contenedores en ejecución</p>
+                </div>
+              </div>
+              <div class="col-6">
+                <div class="bg-light p-2 rounded">
+                  <code class="code-font">docker-compose up</code>
+                  <p class="small text-muted mt-1 mb-0">Inicia servicios definidos</p>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
-      <div class="col-md-6">
-        <div class="card">
+      
+      <div class="col-lg-6">
+        <div class="card shadow-lg h-100 card-hover">
           <div class="card-header bg-warning text-dark">
-            <i class="bi bi-gear-wide-connected"></i> Kubernetes
+            <h3 class="h5 mb-0"><i class="bi bi-gear-wide-connected me-2"></i> Kubernetes</h3>
           </div>
           <div class="card-body">
-            <h5>Archivo de Despliegue</h5>
-            <pre><code>apiVersion: apps/v1
+            <p>Kubernetes es un sistema de orquestación de contenedores para automatizar el despliegue, escalado y gestión de aplicaciones en contenedores. Fue desarrollado originalmente por Google.</p>
+            
+            <div class="feature-icon-wrapper mx-auto" style="background-color: var(--warning);">
+              <i class="bi bi-gear-wide-connected"></i>
+            </div>
+            
+            <h4 class="h6 mt-4 mb-3">Componentes principales</h4>
+            <div class="d-flex mb-3">
+              <div class="bg-warning bg-opacity-10 p-2 rounded-circle me-3">
+                <div class="bg-warning rounded-circle" style="width: 8px; height: 8px;"></div>
+              </div>
+              <div>
+                <strong>Pod</strong>
+                <p class="small text-muted mb-0">Unidad más pequeña en Kubernetes, contiene uno o más contenedores.</p>
+              </div>
+            </div>
+            <div class="d-flex mb-3">
+              <div class="bg-warning bg-opacity-10 p-2 rounded-circle me-3">
+                <div class="bg-warning rounded-circle" style="width: 8px; height: 8px;"></div>
+              </div>
+              <div>
+                <strong>Deployment</strong>
+                <p class="small text-muted mb-0">Gestiona la creación y actualización de réplicas de pods.</p>
+              </div>
+            </div>
+            <div class="d-flex mb-3">
+              <div class="bg-warning bg-opacity-10 p-2 rounded-circle me-3">
+                <div class="bg-warning rounded-circle" style="width: 8px; height: 8px;"></div>
+              </div>
+              <div>
+                <strong>Service</strong>
+                <p class="small text-muted mb-0">Expone pods como un servicio de red, proporcionando IP y DNS estables.</p>
+              </div>
+            </div>
+            <div class="d-flex mb-4">
+              <div class="bg-warning bg-opacity-10 p-2 rounded-circle me-3">
+                <div class="bg-warning rounded-circle" style="width: 8px; height: 8px;"></div>
+              </div>
+              <div>
+                <strong>Ingress</strong>
+                <p class="small text-muted mb-0">Gestiona el acceso externo a los servicios dentro del clúster.</p>
+              </div>
+            </div>
+            
+            <h4 class="h6 mb-3">Ejemplo de archivo YAML</h4>
+            <div class="code-block code-font mb-4">
+apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: web-api
+  name: api-deployment
 spec:
   replicas: 3
+  selector:
+    matchLabels:
+      app: api
   template:
+    metadata:
+      labels:
+        app: api
     spec:
       containers:
-      - name: app
-        image: my-api:1.0.0
+      - name: api
+        image: myapi:1.0
         ports:
-        - containerPort: 3000</code></pre>
-            <button class="btn btn-sm btn-warning mt-2" data-bs-toggle="modal" data-bs-target="#k8sModal">
-              Ver diagrama de arquitectura
-            </button>
+        - containerPort: 3000
+        resources:
+          limits:
+            cpu: "0.5"
+            memory: "512Mi"
+          requests:
+            cpu: "0.2"
+            memory: "256Mi"
+            </div>
+            
+            <h4 class="h6 mb-3">Comandos esenciales</h4>
+            <div class="row g-2">
+              <div class="col-6">
+                <div class="bg-light p-2 rounded">
+                  <code class="code-font">kubectl apply -f deployment.yaml</code>
+                  <p class="small text-muted mt-1 mb-0">Aplica configuración</p>
+                </div>
+              </div>
+              <div class="col-6">
+                <div class="bg-light p-2 rounded">
+                  <code class="code-font">kubectl get pods</code>
+                  <p class="small text-muted mt-1 mb-0">Lista pods</p>
+                </div>
+              </div>
+              <div class="col-6">
+                <div class="bg-light p-2 rounded">
+                  <code class="code-font">kubectl logs pod-name</code>
+                  <p class="small text-muted mt-1 mb-0">Muestra logs</p>
+                </div>
+              </div>
+              <div class="col-6">
+                <div class="bg-light p-2 rounded">
+                  <code class="code-font">kubectl scale deployment/api --replicas=5</code>
+                  <p class="small text-muted mt-1 mb-0">Escala pods</p>
+                </div>
+              </div>
+            </div>
           </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="card shadow-lg mb-5">
+      <div class="card-header">
+        <h3 class="h5 mb-0">Buenas prácticas para contenedores</h3>
+      </div>
+      <div class="card-body p-4">
+        <div class="row g-4">
+          <div class="col-md-4">
+            <div class="feature-card">
+              <div class="card-body">
+                <div class="feature-icon-wrapper" style="background-color: rgba(99, 102, 241, 0.1); color: var(--primary);">
+                  <i class="bi bi-layers"></i>
+                </div>
+                <h4 class="h6 mb-3">Imágenes</h4>
+                <ul class="list-unstyled">
+                  <li class="mb-2"><i class="bi bi-check-circle text-success me-2"></i> Usa imágenes base oficiales y ligeras (alpine/slim)</li>
+                  <li class="mb-2"><i class="bi bi-check-circle text-success me-2"></i> Minimiza el número de capas</li>
+                  <li class="mb-2"><i class="bi bi-check-circle text-success me-2"></i> Usa .dockerignore para excluir archivos innecesarios</li>
+                  <li class="mb-2"><i class="bi bi-check-circle text-success me-2"></i> Etiqueta las imágenes con versiones específicas</li>
+                  <li><i class="bi bi-check-circle text-success me-2"></i> Escanea las imágenes en busca de vulnerabilidades</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          
+          <div class="col-md-4">
+            <div class="feature-card">
+              <div class="card-body">
+                <div class="feature-icon-wrapper" style="background-color: rgba(20, 184, 166, 0.1); color: var(--secondary);">
+                  <i class="bi bi-shield-lock"></i>
+                </div>
+                <h4 class="h6 mb-3">Seguridad</h4>
+                <ul class="list-unstyled">
+                  <li class="mb-2"><i class="bi bi-check-circle text-success me-2"></i> No ejecutes contenedores como root</li>
+                  <li class="mb-2"><i class="bi bi-check-circle text-success me-2"></i> Usa secretos para información sensible</li>
+                  <li class="mb-2"><i class="bi bi-check-circle text-success me-2"></i> Limita los recursos (CPU, memoria)</li>
+                  <li class="mb-2"><i class="bi bi-check-circle text-success me-2"></i> Implementa políticas de seguridad de pods</li>
+                  <li><i class="bi bi-check-circle text-success me-2"></i> Actualiza regularmente las imágenes base</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          
+          <div class="col-md-4">
+            <div class="feature-card">
+              <div class="card-body">
+                <div class="feature-icon-wrapper" style="background-color: rgba(245, 158, 11, 0.1); color: var(--warning);">
+                  <i class="bi bi-gear"></i>
+                </div>
+                <h4 class="h6 mb-3">Operaciones</h4>
+                <ul class="list-unstyled">
+                  <li class="mb-2"><i class="bi bi-check-circle text-success me-2"></i> Implementa health checks</li>
+                  <li class="mb-2"><i class="bi bi-check-circle text-success me-2"></i> Configura logs estructurados</li>
+                  <li class="mb-2"><i class="bi bi-check-circle text-success me-2"></i> Usa volúmenes para datos persistentes</li>
+                  <li class="mb-2"><i class="bi bi-check-circle text-success me-2"></i> Implementa estrategias de despliegue seguras</li>
+                  <li><i class="bi bi-check-circle text-success me-2"></i> Monitorea el rendimiento y uso de recursos</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="card shadow-lg">
+      <div class="card-header">
+        <h3 class="h5 mb-0">Comparativa: Docker vs Kubernetes</h3>
+      </div>
+      <div class="card-body p-4">
+        <div class="table-responsive">
+          <table class="table table-bordered">
+            <thead class="table-light">
+              <tr>
+                <th>Característica</th>
+                <th>Docker</th>
+                <th>Kubernetes</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="fw-bold">Propósito principal</td>
+                <td>Creación y ejecución de contenedores</td>
+                <td>Orquestación y gestión de contenedores</td>
+              </tr>
+              <tr>
+                <td class="fw-bold">Escalabilidad</td>
+                <td>Limitada (Docker Swarm)</td>
+                <td>Alta (diseñado para escalar)</td>
+              </tr>
+              <tr>
+                <td class="fw-bold">Complejidad</td>
+                <td>Baja</td>
+                <td>Alta</td>
+              </tr>
+              <tr>
+                <td class="fw-bold">Auto-recuperación</td>
+                <td>Limitada</td>
+                <td>Sí, automática</td>
+              </tr>
+              <tr>
+                <td class="fw-bold">Balanceo de carga</td>
+                <td>Básico</td>
+                <td>Avanzado</td>
+              </tr>
+              <tr>
+                <td class="fw-bold">Despliegues</td>
+                <td>Manuales o con Docker Compose</td>
+                <td>Automatizados con estrategias avanzadas</td>
+              </tr>
+              <tr>
+                <td class="fw-bold">Caso de uso ideal</td>
+                <td>Desarrollo local, aplicaciones pequeñas</td>
+                <td>Producción, aplicaciones complejas y distribuidas</td>
+              </tr>
+            </tbody>
+          </table>
         </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- Desarrollo Cloud (50 puntos) -->
-<section id="cloud-dev" class="py-5 bg-primary text-white">
-  <div class="container">
-    <h2 class="text-center mb-5 display-4 fw-bold">Desarrollo para la Nube</h2>
-    <div class="row g-4">
+<!-- Desarrollo Cloud -->
+<section id="cloud-dev" class="py-5 bg-gradient-primary text-white">
+  <div class="container py-5">
+    <div class="text-center mb-5">
+      <h6 class="section-subtitle text-white">INFRAESTRUCTURA</h6>
+      <h2 class="section-title display-5 fw-bold">Desarrollo para la Nube</h2>
+      <p class="text-light mx-auto" style="max-width: 700px;">El desarrollo en la nube permite crear aplicaciones escalables, resilientes y globalmente accesibles sin preocuparse por la infraestructura subyacente.</p>
+    </div>
+    
+    <div class="row g-4 mb-5">
       <div class="col-md-4">
-        <div class="card bg-white text-dark h-100">
-          <div class="card-header">AWS Lambda</div>
+        <div class="card bg-white text-dark h-100 shadow-lg card-hover">
           <div class="card-body">
-            <h5>Función Serverless</h5>
-            <pre><code>exports.handler = async (event) => {
-    const response = {
-        statusCode: 200,
-        body: JSON.stringify('Hello from Lambda!'),
-    };
-    return response;
-};</code></pre>
-            <div class="mt-2">
+            <div class="feature-icon-wrapper mx-auto">
+              <i class="bi bi-lightning"></i>
+            </div>
+            <h3 class="h5 mb-3 text-center">AWS Lambda</h3>
+            <h4 class="h6 mb-3">Función Serverless</h4>
+            <div class="code-block code-font">
+exports.handler = async (event) => {
+  const response = {
+    statusCode: 200,
+    body: JSON.stringify('Hello from Lambda!'),
+  };
+  return response;
+};
+            </div>
+            <div class="mt-3 d-flex flex-wrap gap-2 justify-content-center">
               <span class="badge bg-primary">Escalado automático</span>
               <span class="badge bg-success">Pago por uso</span>
+              <span class="badge bg-info">Sin servidor que gestionar</span>
             </div>
           </div>
         </div>
       </div>
+      
       <div class="col-md-4">
-        <div class="card bg-white text-dark h-100">
-          <div class="card-header">Azure Cosmos DB</div>
+        <div class="card bg-white text-dark h-100 shadow-lg card-hover">
           <div class="card-body">
-            <h5>Base de Datos Global</h5>
-            <ul>
-              <li>Multi-modelo</li>
-              <li>Baja latencia</li>
-              <li>Escalado horizontal</li>
+            <div class="feature-icon-wrapper mx-auto" style="background-color: var(--secondary);">
+              <i class="bi bi-database"></i>
+            </div>
+            <h3 class="h5 mb-3 text-center">Azure Cosmos DB</h3>
+            <h4 class="h6 mb-3">Base de Datos Global</h4>
+            <ul class="list-unstyled mb-3">
+              <li class="mb-2"><i class="bi bi-check-circle text-success me-2"></i> Multi-modelo (documentos, grafos, clave-valor)</li>
+              <li class="mb-2"><i class="bi bi-check-circle text-success me-2"></i> Baja latencia global</li>
+              <li class="mb-2"><i class="bi bi-check-circle text-success me-2"></i> Escalado horizontal automático</li>
+              <li><i class="bi bi-check-circle text-success me-2"></i> Acuerdos de nivel de servicio (SLA) líderes</li>
             </ul>
-            <img src="https://www.windowscentral.com/sites/wpcentral.com/files/styles/medium/public/field/image/2018/04/azure-map.jpg?itok=hc5BJbWH" class="img-fluid" alt="Distribución global">
+            <img src="https://learn.microsoft.com/es-es/azure/cosmos-db/media/introduction/azure-cosmos-db.png" class="img-fluid rounded" alt="Cosmos DB">
           </div>
         </div>
       </div>
+      
       <div class="col-md-4">
-        <div class="card bg-white text-dark h-100">
-          <div class="card-header">Google Cloud Run</div>
+        <div class="card bg-white text-dark h-100 shadow-lg card-hover">
           <div class="card-body">
-            <h5>Contenedores Administrados</h5>
-            <div class="ratio ratio-16x9">
-              <iframe src="https://www.youtube.com/watch?v=wd22sbv8UlE&ab_channel=PRONECTIS" title="Cloud Run tutorial"></iframe>
+            <div class="feature-icon-wrapper mx-auto" style="background-color: var(--info);">
+              <i class="bi bi-cloud-arrow-up"></i>
             </div>
-            <button class="btn btn-sm btn-primary mt-2" data-bs-toggle="modal" data-bs-target="#cloudModal">
+            <h3 class="h5 mb-3 text-center">Google Cloud Run</h3>
+            <h4 class="h6 mb-3">Contenedores Administrados</h4>
+            <p class="small mb-3">Ejecuta contenedores sin preocuparte por la infraestructura subyacente.</p>
+            <div class="bg-light p-3 rounded mb-3">
+              <h6 class="mb-2">Características principales:</h6>
+              <ul class="small mb-0">
+                <li>Escalado a cero (no pagas cuando no hay tráfico)</li>
+                <li>Despliegue sencillo desde Docker Hub o GCR</li>
+                <li>Integración con CI/CD</li>
+                <li>Soporte para HTTP/2, WebSockets y gRPC</li>
+              </ul>
+            </div>
+            <button class="btn btn-sm btn-primary w-100" data-bs-toggle="modal" data-bs-target="#cloudModal">
               Ver comparativas
             </button>
           </div>
         </div>
       </div>
-      <div class="col-md-4">
-        <div class="card bg-white text-dark h-100">
-          <div class="card-header">Firebase</div>
-          <div class="card-body">
-            <h5>Backend como Servicio (BaaS)</h5>
-            <ul>
-              <li>Autenticación integrada</li>
-              <li>Base de datos en tiempo real</li>
-              <li>Hosting y funciones cloud</li>
+    </div>
+    
+    <div class="card bg-dark border-0 shadow-lg mb-5">
+      <div class="card-body p-4">
+        <h3 class="h5 mb-4 text-white">Arquitecturas Cloud Native</h3>
+        <div class="row">
+          <div class="col-md-6">
+            <h4 class="h6 mb-3 text-white">Principios fundamentales</h4>
+            <ul class="list-unstyled">
+              <li class="mb-3">
+                <div class="d-flex">
+                  <div class="text-info me-2">•</div>
+                  <div>
+                    <strong class="text-white">Microservicios</strong>
+                    <p class="small text-light">Aplicaciones compuestas por servicios pequeños e independientes.</p>
+                  </div>
+                </div>
+              </li>
+              <li class="mb-3">
+                <div class="d-flex">
+                  <div class="text-info me-2">•</div>
+                  <div>
+                    <strong class="text-white">Contenedores</strong>
+                    <p class="small text-light">Empaquetado consistente de aplicaciones y sus dependencias.</p>
+                  </div>
+                </div>
+              </li>
+              <li class="mb-3">
+                <div class="d-flex">
+                  <div class="text-info me-2">•</div>
+                  <div>
+                    <strong class="text-white">DevOps</strong>
+                    <p class="small text-light">Integración de desarrollo y operaciones para entregas rápidas y confiables.</p>
+                  </div>
+                </div>
+              </li>
+              <li>
+                <div class="d-flex">
+                  <div class="text-info me-2">•</div>
+                  <div>
+                    <strong class="text-white">Infraestructura como código</strong>
+                    <p class="small text-light">Gestión de infraestructura mediante archivos de configuración versionados.</p>
+                  </div>
+                </div>
+              </li>
+            </ul>
+          </div>
+          <div class="col-md-6">
+            <h4 class="h6 mb-3 text-white">Beneficios</h4>
+            <ul class="list-unstyled">
+              <li class="mb-3">
+                <div class="d-flex">
+                  <div class="text-success me-2">✓</div>
+                  <div>
+                    <strong class="text-white">Escalabilidad automática</strong>
+                    <p class="small text-light">Adaptación dinámica a la demanda sin intervención manual.</p>
+                  </div>
+                </div>
+              </li>
+              <li class="mb-3">
+                <div class="d-flex">
+                  <div class="text-success me-2">✓</div>
+                  <div>
+                    <strong class="text-white">Alta disponibilidad</strong>
+                    <p class="small text-light">Sistemas resilientes con mínimo tiempo de inactividad.</p>
+                  </div>
+                </div>
+              </li>
+              <li class="mb-3">
+                <div class="d-flex">
+                  <div class="text-success me-2">✓</div>
+                  <div>
+                    <strong class="text-white">Agilidad</strong>
+                    <p class="small text-light">Desarrollo y despliegue rápidos de nuevas funcionalidades.</p>
+                  </div>
+                </div>
+              </li>
+              <li>
+                <div class="d-flex">
+                  <div class="text-success me-2">✓</div>
+                  <div>
+                    <strong class="text-white">Optimización de costos</strong>
+                    <p class="small text-light">Pago por uso y aprovechamiento eficiente de recursos.</p>
+                  </div>
+                </div>
+              </li>
             </ul>
           </div>
         </div>
       </div>
-      <div class="col-md-4">
-        <div class="card bg-white text-dark h-100">
-          <div class="card-header">Cloudflare Workers</div>
+    </div>
+    
+    <div class="row g-4">
+      <div class="col-md-6">
+        <div class="card bg-white text-dark shadow-lg card-hover">
+          <div class="card-header">
+            <h3 class="h5 mb-0">Servicios Serverless Populares</h3>
+          </div>
           <div class="card-body">
-            <h5>Edge Computing</h5>
-            <p>Ejecuta funciones en servidores distribuidos cerca del usuario.</p>
-            <span class="badge bg-warning text-dark">Bajo coste</span>
-            <span class="badge bg-primary">Alto rendimiento</span>
+            <div class="table-responsive">
+              <table class="table table-bordered">
+                <thead class="table-light">
+                  <tr>
+                    <th>Servicio</th>
+                    <th>AWS</th>
+                    <th>Azure</th>
+                    <th>Google Cloud</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="fw-bold">Funciones</td>
+                    <td>Lambda</td>
+                    <td>Functions</td>
+                    <td>Cloud Functions</td>
+                  </tr>
+                  <tr>
+                    <td class="fw-bold">API Gateway</td>
+                    <td>API Gateway</td>
+                    <td>API Management</td>
+                    <td>API Gateway</td>
+                  </tr>
+                  <tr>
+                    <td class="fw-bold">Contenedores</td>
+                    <td>Fargate</td>
+                    <td>Container Instances</td>
+                    <td>Cloud Run</td>
+                  </tr>
+                  <tr>
+                    <td class="fw-bold">Bases de datos</td>
+                    <td>DynamoDB</td>
+                    <td>Cosmos DB</td>
+                    <td>Firestore</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="col-md-6">
+        <div class="card bg-white text-dark shadow-lg card-hover">
+          <div class="card-header">
+            <h3 class="h5 mb-0">Mejores Prácticas para Cloud</h3>
+          </div>
+          <div class="card-body">
+            <div class="accordion" id="cloudPracticesAccordion">
+              <div class="accordion-item border-0 shadow-sm mb-3">
+                <h2 class="accordion-header" id="securityHeading">
+                  <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#securityCollapse" aria-expanded="true" aria-controls="securityCollapse">
+                    <i class="bi bi-shield-lock text-primary me-2"></i> Seguridad
+                  </button>
+                </h2>
+                <div id="securityCollapse" class="accordion-collapse collapse show" aria-labelledby="securityHeading">
+                  <div class="accordion-body">
+                    <ul class="small">
+                      <li>Implementa el principio de mínimo privilegio</li>
+                      <li>Cifra datos en tránsito y en reposo</li>
+                      <li>Usa secretos gestionados para credenciales</li>
+                      <li>Implementa autenticación multifactor</li>
+                      <li>Realiza auditorías de seguridad regularmente</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+              
+              <div class="accordion-item border-0 shadow-sm mb-3">
+                <h2 class="accordion-header" id="resilienceHeading">
+                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#resilienceCollapse" aria-expanded="false" aria-controls="resilienceCollapse">
+                    <i class="bi bi-arrow-repeat text-success me-2"></i> Resiliencia
+                  </button>
+                </h2>
+                <div id="resilienceCollapse" class="accordion-collapse collapse" aria-labelledby="resilienceHeading">
+                  <div class="accordion-body">
+                    <ul class="small">
+                      <li>Diseña para fallos (Chaos Engineering)</li>
+                      <li>Implementa patrones de circuit breaker</li>
+                      <li>Usa múltiples zonas de disponibilidad</li>
+                      <li>Implementa estrategias de backup y recuperación</li>
+                      <li>Monitorea y alerta proactivamente</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+              
+              <div class="accordion-item border-0 shadow-sm mb-3">
+                <h2 class="accordion-header" id="performanceHeading">
+                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#performanceCollapse" aria-expanded="false" aria-controls="performanceCollapse">
+                    <i class="bi bi-lightning-charge text-warning me-2"></i> Rendimiento
+                  </button>
+                </h2>
+                <div id="performanceCollapse" class="accordion-collapse collapse" aria-labelledby="performanceHeading">
+                  <div class="accordion-body">
+                    <ul class="small">
+                      <li>Implementa caché en múltiples niveles</li>
+                      <li>Usa CDN para contenido estático</li>
+                      <li>Optimiza consultas de bases de datos</li>
+                      <li>Implementa compresión de datos</li>
+                      <li>Monitorea y optimiza latencia</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+              
+              <div class="accordion-item border-0 shadow-sm">
+                <h2 class="accordion-header" id="dataHeading">
+                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#dataCollapse" aria-expanded="false" aria-controls="dataCollapse">
+                    <i class="bi bi-database text-info me-2"></i> Gestión de datos
+                  </button>
+                </h2>
+                <div id="dataCollapse" class="accordion-collapse collapse" aria-labelledby="dataHeading">
+                  <div class="accordion-body">
+                    <ul class="small">
+                      <li>Elige el tipo de base de datos adecuado para cada caso</li>
+                      <li>Implementa estrategias de particionamiento</li>
+                      <li>Gestiona la consistencia en sistemas distribuidos</li>
+                      <li>Implementa políticas de retención de datos</li>
+                      <li>Cumple con regulaciones de privacidad (GDPR, CCPA)</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -428,29 +2735,63 @@ spec:
   </div>
 </section>
 
-<!-- Formulario de Contacto (100 puntos) -->
-<section id="contacto" class="py-5">
-  <div class="container">
-    <h2 class="text-center mb-4 display-5 fw-bold">Contacto</h2>
-    <form class="row g-3">
-      <div class="col-md-6">
-        <label for="nombre" class="form-label">Nombre</label>
-        <input type="text" class="form-control" id="nombre" placeholder="Tu nombre" required>
+<!-- Formulario de Contacto -->
+<section id="contacto" class="py-5 bg-pattern">
+  <div class="container py-5">
+    <div class="text-center mb-5">
+      <h6 class="section-subtitle">CONTACTO</h6>
+      <h2 class="section-title display-5 fw-bold">¿Necesitas más información?</h2>
+      <p class="text-muted mx-auto" style="max-width: 700px;">Completa el formulario y nos pondremos en contacto contigo para resolver todas tus dudas sobre tecnologías Web API.</p>
+    </div>
+    
+    <div class="row justify-content-center">
+      <div class="col-md-8">
+        <div class="card shadow-lg">
+          <div class="card-body p-4 p-lg-5">
+            <form>
+              <div class="row g-4">
+                <div class="col-md-6">
+                  <label for="nombre" class="form-label">Nombre</label>
+                  <div class="input-group">
+                    <span class="input-group-text bg-primary text-white"><i class="bi bi-person"></i></span>
+                    <input type="text" class="form-control" id="nombre" placeholder="Tu nombre" required>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <label for="email" class="form-label">Correo Electrónico</label>
+                  <div class="input-group">
+                    <span class="input-group-text bg-primary text-white"><i class="bi bi-envelope"></i></span>
+                    <input type="email" class="form-control" id="email" placeholder="nombre@ejemplo.com" required>
+                  </div>
+                </div>
+                <div class="col-12">
+                  <label for="asunto" class="form-label">Asunto</label>
+                  <div class="input-group">
+                    <span class="input-group-text bg-primary text-white"><i class="bi bi-chat-left-text"></i></span>
+                    <input type="text" class="form-control" id="asunto" placeholder="Asunto de tu mensaje" required>
+                  </div>
+                </div>
+                <div class="col-12">
+                  <label for="mensaje" class="form-label">Mensaje</label>
+                  <div class="input-group">
+                    <span class="input-group-text bg-primary text-white"><i class="bi bi-pencil"></i></span>
+                    <textarea class="form-control" id="mensaje" rows="5" placeholder="Escribe tu mensaje..." required></textarea>
+                  </div>
+                </div>
+                <div class="col-12 text-end">
+                  <button type="submit" class="btn btn-primary">
+                    <i class="bi bi-send me-2"></i>Enviar mensaje
+                  </button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
       </div>
-      <div class="col-md-6">
-        <label for="email" class="form-label">Correo Electrónico</label>
-        <input type="email" class="form-control" id="email" placeholder="nombre@ejemplo.com" required>
-      </div>
-      <div class="col-12">
-        <label for="mensaje" class="form-label">Mensaje</label>
-        <textarea class="form-control" id="mensaje" rows="4" placeholder="Escribe tu mensaje..." required></textarea>
-      </div>
-      <div class="col-12 text-center">
-        <button type="submit" class="btn btn-primary">Enviar</button>
-      </div>
-    </form>
+    </div>
   </div>
 </section>
+
 
 
 <!-- Modales -->
@@ -463,7 +2804,7 @@ spec:
         <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
       </div>
       <div class="modal-body">
-        <img src="https://aulasoftwarelibre.github.io/taller-de-pas/Sesion-2/images/arquitectura.jpg" class="img-fluid" alt="Arquitectura Kubernetes">
+        <img src="https://d33wubrfki0l68.cloudfront.net/2475489eaf20163ec0f54ddc1d92aa8d4c87c96b/e7c81/images/docs/components-of-kubernetes.svg" class="img-fluid" alt="Arquitectura Kubernetes">
         <div class="row mt-3">
           <div class="col-md-6">
             <h6>Componentes Principales</h6>
@@ -471,13 +2812,17 @@ spec:
               <li>Pods</li>
               <li>Services</li>
               <li>Deployments</li>
+              <li>ConfigMaps</li>
+              <li>Secrets</li>
             </ul>
           </div>
           <div class="col-md-6">
             <h6>Comandos Esenciales</h6>
-            <pre><code>kubectl get pods
+            <pre class="code-font"><code>kubectl get pods
 kubectl apply -f deployment.yaml
-kubectl scale deployment web --replicas=5</code></pre>
+kubectl scale deployment web --replicas=5
+kubectl logs pod-name
+kubectl port-forward pod-name 8080:80</code></pre>
           </div>
         </div>
       </div>
@@ -495,7 +2840,17 @@ kubectl scale deployment web --replicas=5</code></pre>
       </div>
       <div class="modal-body">
         <p>Un JWT consta de tres partes: Header, Payload y Signature, separadas por puntos. Cada parte se codifica en Base64.</p>
-        <img src="https://media.licdn.com/dms/image/v2/D4D12AQGkSnB3ry1LOQ/article-cover_image-shrink_720_1280/article-cover_image-shrink_720_1280/0/1721175878649?e=2147483647&v=beta&t=bp1EWyFnt33xgJBJBe0cwFwNnoKmRy_TvdTZPhKAS-A" class="img-fluid" alt="Estructura JWT">
+        <img src="https://cdn.auth0.com/blog/legacy-app-auth/legacy-app-auth-5.png" class="img-fluid" alt="Estructura JWT">
+        <div class="mt-3">
+          <h6>Claims comunes:</h6>
+          <ul>
+            <li><strong>iss</strong> (issuer): Emisor del token</li>
+            <li><strong>sub</strong> (subject): Sujeto del token (generalmente el ID del usuario)</li>
+            <li><strong>exp</strong> (expiration time): Tiempo de expiración</li>
+            <li><strong>iat</strong> (issued at): Tiempo de emisión</li>
+            <li><strong>aud</strong> (audience): Destinatarios del token</li>
+          </ul>
+        </div>
       </div>
     </div>
   </div>
@@ -510,14 +2865,85 @@ kubectl scale deployment web --replicas=5</code></pre>
         <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
       </div>
       <div class="modal-body">
-        <p>Comparativa de costos, escalabilidad y rendimiento entre AWS Lambda, Azure Cosmos DB, Google Cloud Run, Firebase y Cloudflare Workers.</p>
-        <img src="https://www.infortisalabs.com/blog/wp-content/uploads/2024/05/Grafico-Tabla-Comparativa-Moderno-Degradado-Rosa-y-Amarillo-1.webp" class="img-fluid" alt="Comparativa Cloud">
+        <p>Comparativa de costos, escalabilidad y rendimiento entre los principales proveedores de servicios cloud.</p>
+        <div class="table-responsive">
+          <table class="table table-bordered">
+            <thead class="table-light">
+              <tr>
+                <th>Servicio</th>
+                <th>AWS</th>
+                <th>Azure</th>
+                <th>Google Cloud</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="fw-bold">Modelo de precios</td>
+                <td>Pago por uso, reservas</td>
+                <td>Pago por uso, reservas</td>
+                <td>Pago por uso, descuentos por uso sostenido</td>
+              </tr>
+              <tr>
+                <td class="fw-bold">Cobertura global</td>
+                <td>25+ regiones</td>
+                <td>60+ regiones</td>
+                <td>20+ regiones</td>
+              </tr>
+              <tr>
+                <td class="fw-bold">Fortalezas</td>
+                <td>Madurez, variedad de servicios</td>
+                <td>Integración con productos Microsoft</td>
+                <td>Análisis de datos, ML/AI</td>
+              </tr>
+              <tr>
+                <td class="fw-bold">Curva de aprendizaje</td>
+                <td>Moderada</td>
+                <td>Moderada</td>
+                <td>Baja</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
   </div>
 </div>
 
+
 <!-- Bootstrap JS -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-</body>
-</html>
+
+<!-- Custom JS -->
+<script>
+  // Navbar scroll effect
+  window.addEventListener('scroll', function() {
+    const navbar = document.querySelector('.navbar');
+    if (window.scrollY > 50) {
+      navbar.classList.add('navbar-scrolled');
+    } else {
+      navbar.classList.remove('navbar-scrolled');
+    }
+  });
+  
+  // Back to top button
+  const backToTopButton = document.getElementById('backToTop');
+  
+  window.addEventListener('scroll', function() {
+    if (window.scrollY > 300) {
+      backToTopButton.classList.add('show');
+    } else {
+      backToTopButton.classList.remove('show');
+    }
+  });
+  
+  backToTopButton.addEventListener('click', function(e) {
+    e.preventDefault();
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    });
+  });
+  
+  // Active nav link
+  const sections = document.querySelectorAll('section');
+  const navLinks = document.querySelectorAll
